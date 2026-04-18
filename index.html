@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="주식회사 헤세드(CHESED) — 이탈리아·미국 프리미엄 가공식품 직수입 유통 전문 무역기업. 네이버 스마트스토어 페퍼앤솔트 운영.">
+<meta name="keywords" content="헤세드, CHESED, 수입식품, 이탈리안식품, 올리브오일, 파스타, 식초, 식품수입, 무역유통">
+<meta property="og:title" content="CHESED — 프리미엄 수입식품 무역유통">
+<meta property="og:description" content="이탈리아·미국 프리미엄 가공식품 직수입 전문 기업">
+<meta property="og:type" content="website">
+<title>CHESED — 헤세드 | 프리미엄 식품 수입 유통</title>
+<!--
+  ============================================================
+  CHESED 홈페이지 — FULL VERSION v8
+  생성: 2025-04 | Claude Sonnet 4.6
+  
+  폰트:   Cinzel (타이틀/로고) + Noto Sans KR (본문/UI)
+  컬러:   Navy #1B3A5C + Gold #B8943F + Cream #F7F5F0
+  
+  이미지 교체 방법:
+    <div class="ph ph-N"> 를 찾아서
+    <img src="assets/images/파일명.jpg" style="width:100%;height:100%;object-fit:cover">
+    로 내부에 추가 또는 교체
+  
+  브랜드 수정 방법:
+    아래 <script> 내 BRANDS 배열만 수정
+  
+  연락처 추가 방법:
+    <!-- TODO: EMAIL --> 주석 검색 후 실제 이메일로 교체
+  ============================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#F7F5F0;--dark:#0D1B2A;--navy:#1B3A5C;
+  --navy-mid:#2B5480;--navy-light:#3D6E9E;
+  --gold:#B8943F;--gold-light:#D4AD5A;--gold-pale:#F0E4C0;
+  --border:#D5E0EA;--muted:#5A6E7F;--bg-alt:#EDF2F7;
+  --fd:'Cinzel',serif;--fb:'Noto Sans KR',sans-serif;
+  --nav-h:64px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--cream);color:var(--dark);font-family:var(--fb);overflow-x:hidden;min-width:320px}
+img{max-width:100%;display:block}
+.lang-toggle{display:flex;border:2.5px solid var(--gold);overflow:hidden;flex-shrink:0}
+.lang-btn{padding:7px 14px;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border:none;background:#fff;color:var(--navy);transition:all .2s;white-space:nowrap}
+.lang-btn.active{background:var(--gold);color:#fff}
+.lang-btn:not(.active):hover{background:var(--gold-pale)}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(247,245,240,0.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;gap:12px}
+.nav-logo{font-family:var(--fd);font-size:20px;font-weight:700;letter-spacing:5px;color:var(--navy);white-space:nowrap;flex-shrink:0}
+.nav-links{display:flex;gap:22px;list-style:none;flex:1;justify-content:center}
+.nav-links a{font-family:var(--fb);font-size:12px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .3s;white-space:nowrap}
+.nav-links a:hover{color:var(--navy)}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-cta{background:var(--navy);color:#fff;padding:7px 16px;font-family:var(--fb);font-size:11px;font-weight:500;text-decoration:none;white-space:nowrap;transition:background .3s}
+.nav-cta:hover{background:var(--navy-mid)}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;flex-shrink:0;background:none;border:none;padding:4px}
+.hamburger span{display:block;height:2px;background:var(--navy);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(247,245,240,0.99);border-bottom:1px solid var(--border);z-index:199;flex-direction:column;padding:0}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--fb);font-size:14px;font-weight:500;color:var(--dark);text-decoration:none;padding:16px 6vw;border-bottom:1px solid var(--border)}
+.mobile-menu a:hover{color:var(--navy);background:var(--bg-alt)}
+.mobile-menu-bottom{padding:16px 6vw;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ph{display:block;width:100%;position:relative;overflow:hidden}
+.ph-1{background:#1B3A5C}.ph-2{background:#2D4A3E;height:200px}.ph-3{background:#3D2B1F;height:320px}
+.ph-4a{background:#2B3A5C}.ph-4b{background:#1F3A2B}.ph-4c{background:#3A2B1B}
+.ph-5a{background:#1B3040;height:100%}.ph-5b{background:#3A3020;height:100%}.ph-5c{background:#20302A;height:100%}
+.ph-6{background:#0D1B2A;height:320px}.ph-7a{background:#1A2A1A}.ph-7b{background:#2A1A2A}
+.ph-tag{position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,0.5);color:rgba(255,255,255,0.5);font-family:var(--fd);font-size:8px;letter-spacing:2px;padding:4px 9px;text-transform:uppercase}
+.gold-bar{background:var(--gold);padding:0 6vw;height:46px;display:flex;align-items:center;overflow:hidden}
+.gb-inner{display:flex;gap:24px;align-items:center;white-space:nowrap}
+.gb-item{font-family:var(--fd);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(13,27,42,0.7)}
+.gb-dot{color:rgba(13,27,42,0.3);font-size:14px}
+.sec-label{font-family:var(--fd);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.sec-title{font-family:var(--fd);font-size:clamp(20px,2.4vw,38px);font-weight:700;line-height:1.2;margin-bottom:18px;letter-spacing:1.5px;color:var(--dark)}
+.sec-title .accent{color:var(--gold);font-weight:400}
+.body-text{font-family:var(--fb);font-size:14px;line-height:1.9;color:var(--muted);margin-bottom:12px;font-weight:300}
+.hero{display:grid;grid-template-columns:1fr 1fr;padding-top:var(--nav-h);min-height:100vh}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:64px 6vw 64px 8vw;background:var(--dark);position:relative;overflow:hidden}
+.hero-left::before{content:'';position:absolute;top:-100px;right:-50px;width:320px;height:320px;border-radius:50%;border:1px solid rgba(184,148,63,0.18);pointer-events:none}
+.hero-eyebrow{font-family:var(--fd);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-light);margin-bottom:20px}
+.hero-logo{font-family:var(--fd);font-size:clamp(44px,5vw,76px);font-weight:700;letter-spacing:7px;color:#fff;line-height:1;margin-bottom:8px}
+.hero-tagline{font-family:var(--fd);font-size:clamp(11px,1.2vw,15px);font-weight:400;letter-spacing:3px;color:var(--gold-light);margin-bottom:22px;text-transform:uppercase}
+.hero-desc{font-family:var(--fb);font-size:13px;line-height:1.95;color:rgba(247,245,240,0.65);max-width:420px;margin-bottom:28px;font-weight:300}
+.trust-row{display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:6px}
+.trust-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0}
+.trust-item span{font-family:var(--fb);font-size:11px;color:rgba(247,245,240,0.58)}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--dark);padding:12px 24px;font-family:var(--fb);font-size:12px;font-weight:700;text-decoration:none;transition:all .3s;display:inline-block}
+.btn-gold:hover{background:var(--gold-light)}
+.btn-ol{border:1.5px solid rgba(247,245,240,0.3);color:#fff;padding:12px 24px;font-family:var(--fb);font-size:12px;text-decoration:none;transition:all .3s;display:inline-block}
+.btn-ol:hover{border-color:var(--gold);color:var(--gold-pale)}
+.about-wrap{padding:80px 8vw;display:grid;grid-template-columns:1.2fr 0.8fr;gap:56px;align-items:start}
+.co-info{margin-top:28px;border-top:2px solid var(--gold)}
+.info-row{display:grid;grid-template-columns:84px 1fr;border-bottom:1px solid var(--border)}
+.info-lbl{font-family:var(--fd);font-size:9px;letter-spacing:1.5px;color:var(--gold);padding:10px 0 10px 10px;background:rgba(184,148,63,0.06)}
+.info-val{font-family:var(--fb);font-size:12px;color:var(--dark);padding:10px 12px;line-height:1.6}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.stat-box{border-left:3px solid var(--gold);padding-left:14px}
+.stat-num{font-family:var(--fd);font-size:24px;font-weight:700;color:var(--navy);letter-spacing:2px}
+.stat-lbl{font-family:var(--fb);font-size:11px;color:var(--muted);margin-top:2px;line-height:1.5}
+.about-right{display:flex;flex-direction:column;gap:12px}
+.quote-box{background:var(--navy);padding:28px 24px}
+.quote-mark{font-family:var(--fd);font-size:44px;color:var(--gold);opacity:.4;line-height:.8;margin-bottom:10px}
+.quote-text{font-family:var(--fb);font-size:14px;color:rgba(247,245,240,0.85);line-height:1.9;text-align:center;font-weight:300}
+.brands-sec{background:var(--bg-alt);padding:72px 8vw}
+.brand-controls{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.brand-filter-row{display:flex;gap:6px;flex-wrap:wrap}
+.filter-btn{font-family:var(--fb);font-size:11px;font-weight:500;padding:6px 13px;border:1px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;transition:all .2s}
+.filter-btn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.filter-btn:hover:not(.on){border-color:var(--navy);color:var(--navy)}
+#brand-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+.brand-slot{background:#fff;padding:20px 14px;border:1px solid var(--border);border-top:3px solid var(--gold);text-align:center;transition:all .3s}
+.brand-slot:hover{box-shadow:0 6px 20px rgba(27,58,92,0.1);transform:translateY(-2px)}
+.brand-slot-name{font-family:var(--fd);font-size:12px;font-weight:700;color:var(--navy);letter-spacing:1px;margin-bottom:5px}
+.brand-slot-origin{font-family:var(--fb);font-size:10px;color:var(--muted);margin-bottom:7px}
+.brand-slot-cat{display:inline-block;font-family:var(--fb);font-size:10px;background:var(--gold-pale);color:var(--gold);padding:2px 8px;font-weight:500}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.brand-slot{animation:fadeUp .22s ease both}
+.partner-sec{padding:80px 8vw;background:var(--cream)}
+.partner-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:40px}
+.partner-imgs{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:220px 220px;gap:3px}
+.partner-img-main{grid-row:1/3}
+.partner-feature{display:flex;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.partner-feature:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.pf-num{font-family:var(--fd);font-size:26px;font-weight:700;color:var(--gold);opacity:.45;line-height:1;min-width:34px}
+.pf-title{font-family:var(--fb);font-size:14px;font-weight:500;color:var(--dark);margin-bottom:4px}
+.pf-desc{font-family:var(--fb);font-size:13px;color:var(--muted);line-height:1.75;font-weight:300}
+.creds{padding:72px 8vw;background:var(--bg-alt)}
+.cred-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:36px}
+.cred-item{background:#fff;padding:26px 16px;border:1px solid var(--border);border-top:3px solid var(--gold);text-align:center}
+.cred-icon{font-size:22px;margin-bottom:10px}
+.cred-title{font-family:var(--fd);font-size:11px;font-weight:600;color:var(--navy);letter-spacing:1.5px;margin-bottom:6px}
+.cred-desc{font-family:var(--fb);font-size:12px;color:var(--muted);line-height:1.75;font-weight:300}
+.strategy{background:var(--dark);padding:80px 8vw}
+.strategy .sec-label{color:var(--gold-light)}
+.strategy .sec-title{color:#fff}
+.strategy .sec-title .accent{color:var(--gold-light)}
+.strat-intro{font-family:var(--fb);font-size:14px;line-height:1.9;color:rgba(247,245,240,0.52);max-width:520px;margin-bottom:44px;font-weight:300}
+.strat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.strat-card{background:rgba(247,245,240,0.03);padding:32px 22px;border:1px solid rgba(43,84,128,0.15);border-top:2px solid rgba(184,148,63,0.45);transition:all .4s}
+.strat-card:hover{background:rgba(43,84,128,0.13);border-top-color:var(--gold)}
+.strat-num{font-family:var(--fd);font-size:38px;font-weight:700;color:rgba(184,148,63,0.26);margin-bottom:12px;line-height:1}
+.strat-title{font-family:var(--fb);font-size:14px;font-weight:500;color:#fff;margin-bottom:9px}
+.strat-desc{font-family:var(--fb);font-size:13px;line-height:1.85;color:rgba(247,245,240,0.46);font-weight:300}
+.img-strip-3{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.img-duo{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.strip-h{height:280px}.duo-h{height:340px}
+.channels{background:var(--bg-alt);padding:72px 8vw}
+.ch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.ch-card{background:#fff;padding:24px 18px;border:1px solid var(--border);border-top:3px solid var(--gold)}
+.ch-icon{width:38px;height:38px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;background:var(--navy);font-size:15px}
+.ch-name{font-family:var(--fb);font-size:14px;font-weight:500;margin-bottom:6px;color:var(--dark)}
+.ch-desc{font-family:var(--fb);font-size:11px;color:var(--muted);line-height:1.75;margin-bottom:10px;font-weight:300}
+.ch-tags{display:flex;flex-direction:column;gap:3px}
+.ch-tag{font-family:var(--fb);font-size:10px;color:var(--navy-mid)}
+.ch-link{display:inline-block;margin-top:10px;font-family:var(--fb);font-size:11px;font-weight:500;background:var(--navy);color:#fff;padding:6px 12px;text-decoration:none;transition:background .3s}
+.ch-link:hover{background:var(--gold)}
+.roadmap{background:var(--dark);padding:72px 8vw}
+.roadmap .sec-label{color:var(--gold-light)}
+.roadmap .sec-title{color:#fff}
+.roadmap .sec-title .accent{color:var(--gold-light)}
+.rm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:36px}
+.rm-card{padding:24px 18px;border:1px solid rgba(255,255,255,0.07);border-left:3px solid rgba(184,148,63,0.4)}
+.rm-phase{font-family:var(--fd);font-size:8px;letter-spacing:3px;color:var(--gold-light);margin-bottom:8px}
+.rm-title{font-family:var(--fb);font-size:13px;font-weight:500;color:#fff;margin-bottom:8px}
+.rm-desc{font-family:var(--fb);font-size:12px;color:rgba(247,245,240,0.44);line-height:1.8;font-weight:300}
+.rm-badge{display:inline-block;margin-top:10px;font-family:var(--fd);font-size:8px;letter-spacing:2px;padding:3px 9px;border:1px solid rgba(184,148,63,0.4);color:var(--gold-light)}
+.contact{background:var(--navy);padding:80px 8vw;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.contact .sec-label{color:var(--gold-light)}
+.contact .sec-title{color:#fff}
+.contact .sec-title .accent{color:var(--gold-light)}
+.ct-desc{font-family:var(--fb);font-size:13px;line-height:1.9;color:rgba(247,245,240,0.56);margin-bottom:24px;font-weight:300}
+.ct-info{display:flex;flex-direction:column;gap:12px}
+.ct-row{display:flex;gap:12px;align-items:flex-start}
+.ct-lbl{font-family:var(--fd);font-size:9px;letter-spacing:2px;color:var(--gold-light);min-width:64px;margin-top:3px;flex-shrink:0}
+.ct-val{font-family:var(--fb);font-size:13px;color:rgba(247,245,240,0.75);line-height:1.6;font-weight:300}
+.ct-form{display:flex;flex-direction:column;gap:9px}
+.ct-form input,.ct-form textarea{width:100%;background:rgba(247,245,240,0.05);border:1px solid rgba(200,217,232,0.25);color:#fff;padding:11px 13px;font-size:13px;font-family:var(--fb);outline:none;transition:border-color .3s;font-weight:300;-webkit-appearance:none;border-radius:0}
+.ct-form input::placeholder,.ct-form textarea::placeholder{color:rgba(247,245,240,0.27)}
+.ct-form input:focus,.ct-form textarea:focus{border-color:var(--gold)}
+.ct-form textarea{height:90px;resize:none}
+.ct-submit{background:var(--gold);border:none;color:var(--dark);padding:13px;font-size:12px;font-weight:700;cursor:pointer;transition:background .3s;width:100%;font-family:var(--fb);-webkit-appearance:none;border-radius:0}
+.ct-submit:hover{background:var(--gold-light)}
+.footer-gold{background:var(--gold);height:4px}
+footer{background:#07111A;padding:24px 8vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-logo{font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:5px;color:rgba(247,245,240,0.75)}
+.footer-links{display:flex;gap:14px;flex-wrap:wrap}
+.footer-links a{font-family:var(--fb);font-size:11px;color:rgba(247,245,240,0.28);text-decoration:none;transition:color .3s}
+.footer-links a:hover{color:rgba(247,245,240,.6)}
+.footer-copy{font-family:var(--fb);font-size:10px;color:rgba(247,245,240,0.18)}
+@media(max-width:1023px) and (min-width:768px){
+  :root{--nav-h:60px}
+  .nav-links{gap:16px}.nav-links a{font-size:11px}
+  .hero{grid-template-columns:1fr;min-height:auto}.ph-1{height:340px}
+  .about-wrap{grid-template-columns:1fr;gap:36px}.about-right{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ph-2{height:100%}
+  .ph-3{height:260px}
+  #brand-grid{grid-template-columns:repeat(3,1fr)}
+  .partner-layout{grid-template-columns:1fr;gap:32px}.partner-imgs{grid-template-columns:1fr 1fr 1fr;grid-template-rows:200px;height:200px}.partner-img-main{grid-row:auto}
+  .cred-grid{grid-template-columns:repeat(2,1fr)}.strat-grid{grid-template-columns:repeat(2,1fr)}.rm-grid{grid-template-columns:repeat(2,1fr)}
+  .img-duo{grid-template-columns:1fr 1fr}.duo-h{height:240px}
+  .ch-grid{grid-template-columns:repeat(2,1fr)}.contact{grid-template-columns:1fr;gap:36px}
+  .ph-6{height:280px}.sec-title{font-size:clamp(20px,3vw,32px)}
+}
+@media(max-width:767px){
+  :root{--nav-h:56px}
+  .nav-links{display:none}.nav-cta{display:none}.hamburger{display:flex}.nav-logo{font-size:18px;letter-spacing:4px}
+  .hero{grid-template-columns:1fr;min-height:auto}.hero-left{padding:48px 6vw 44px 6vw}.ph-1{height:260px}
+  .gold-bar{height:40px}.gb-item{font-size:8px;letter-spacing:2px}
+  .about-wrap{padding:56px 6vw;grid-template-columns:1fr;gap:28px}.about-right{gap:10px}.ph-2{height:180px}.ph-3{height:200px}
+  .brands-sec{padding:52px 6vw}.brand-controls{flex-direction:column;align-items:flex-start;gap:12px}
+  .filter-btn{font-size:10px;padding:5px 11px}
+  #brand-grid{grid-template-columns:repeat(2,1fr);gap:2px}.brand-slot{padding:16px 12px}.brand-slot-name{font-size:11px}
+  .partner-sec{padding:52px 6vw}.partner-layout{grid-template-columns:1fr;gap:28px;margin-top:28px}
+  .partner-imgs{grid-template-columns:1fr 1fr;grid-template-rows:150px 150px;gap:2px}.partner-img-main{grid-row:1/3}.ph-5b,.ph-5c{height:150px}.ph-6{height:200px}
+  .creds{padding:52px 6vw}.cred-grid{grid-template-columns:repeat(2,1fr);gap:2px;margin-top:24px}.cred-item{padding:20px 12px}.cred-desc{font-size:11px}
+  .strategy{padding:52px 6vw}.strat-grid{grid-template-columns:1fr;gap:2px}.strat-card{padding:24px 18px}
+  .img-strip-3{grid-template-columns:1fr;gap:2px}.strip-h{height:200px}.img-duo{grid-template-columns:1fr;gap:2px}.duo-h{height:220px}
+  .channels{padding:52px 6vw}.ch-grid{grid-template-columns:1fr;gap:10px;margin-top:24px}.ch-card{padding:20px 16px}
+  .roadmap{padding:52px 6vw}.rm-grid{grid-template-columns:1fr;gap:2px;margin-top:24px}
+  .contact{padding:52px 6vw;grid-template-columns:1fr;gap:32px}
+  footer{padding:20px 6vw;flex-direction:column;align-items:flex-start;gap:14px}.footer-links{gap:10px}.footer-copy{display:none}
+  .sec-title{font-size:clamp(18px,4.5vw,26px);letter-spacing:1px}
+}
+@media(max-width:374px){
+  #brand-grid{grid-template-columns:1fr}.cred-grid{grid-template-columns:1fr}
+  .partner-imgs{grid-template-columns:1fr;grid-template-rows:repeat(3,140px)}.partner-img-main{grid-row:auto}
+  .hero-logo{letter-spacing:4px}
+}
+/* Auth Modal CSS */
+.auth-modal {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(13,27,42,0.8);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(5px);}
+.auth-modal.open {display:flex;}
+.auth-box {background:var(--cream);width:90%;max-width:420px;padding:40px 32px;position:relative;border-top:4px solid var(--gold);}
+.auth-close {position:absolute;top:16px;right:20px;font-size:24px;cursor:pointer;color:var(--muted);background:none;border:none;}
+.auth-title {font-family:var(--fd);font-size:24px;color:var(--navy);margin-bottom:24px;text-align:center;}
+.auth-form {display:flex;flex-direction:column;gap:16px;}
+.auth-input {width:100%;padding:12px 16px;font-size:14px;border:1px solid var(--border);font-family:var(--fb);outline:none;}
+.auth-input:focus {border-color:var(--gold);}
+.auth-btn {width:100%;padding:14px;background:var(--navy);color:#fff;border:none;font-size:14px;font-weight:700;font-family:var(--fb);cursor:pointer;transition:background 0.3s;}
+.auth-btn:hover {background:var(--navy-mid);}
+.auth-toggle {text-align:center;margin-top:16px;font-size:12px;color:var(--muted);}
+.auth-toggle span {color:var(--gold);cursor:pointer;font-weight:500;}
+
+</style>
+</head>
+<body>
+<!-- Auth Modal UI -->
+<div class="auth-modal" id="auth-modal">
+  <div class="auth-box">
+    <button class="auth-close" onclick="closeAuthModal()">✕</button>
+    <div class="auth-title" id="auth-title">LOGIN</div>
+    <form class="auth-form" onsubmit="handleAuth(event)">
+      <input type="text" id="auth-name" class="auth-input" placeholder="이름 (회원가입 시)" style="display:none;">
+      <input type="email" id="auth-email" class="auth-input" placeholder="이메일" required>
+      <input type="password" id="auth-password" class="auth-input" placeholder="비밀번호" required>
+      <button type="submit" class="auth-btn" id="auth-submit" data-ko="로그인" data-en="Login">로그인</button>
+    </form>
+    <div class="auth-toggle" id="auth-toggle">계정이 없으신가요? <span onclick="toggleAuthMode()">회원가입</span></div>
+  </div>
+</div>
+<!-- End Auth Modal UI -->
+
+<nav>
+  <div class="nav-logo"><!-- TODO: 로고 이미지 교체 시: <img src="assets/logo/chesed_cinzel_refined3.png" alt="CHESED" style="height:32px"> -->CHESED</div>
+  <ul class="nav-links">
+    <li><a href="#about" data-ko="회사소개" data-en="About">회사소개</a></li>
+    <li><a href="#brands" data-ko="취급브랜드" data-en="Brands">취급브랜드</a></li>
+    <li><a href="#partners" data-ko="파트너십" data-en="Partners">파트너십</a></li>
+    <li><a href="#channels" data-ko="유통채널" data-en="Channels">유통채널</a></li>
+    <li><a href="#contact" data-ko="문의" data-en="Contact">문의</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="setLang('ko')">한국어</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="lang-btn" id="btn-login" onclick="openAuthModal()">로그인</button>
+    <a href="https://smartstore.naver.com/peppernsalt" target="_blank" class="nav-cta" data-ko="스마트스토어 →" data-en="Smart Store →">스마트스토어 →</a>
+    <button class="hamburger" id="hbg" onclick="toggleMenu()" aria-label="메뉴열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" onclick="closeMenu()" data-ko="회사소개" data-en="About">회사소개</a>
+  <a href="#brands" onclick="closeMenu()" data-ko="취급브랜드" data-en="Brands">취급브랜드</a>
+  <a href="#partners" onclick="closeMenu()" data-ko="파트너십" data-en="Partners">파트너십</a>
+  <a href="#channels" onclick="closeMenu()" data-ko="유통채널" data-en="Channels">유통채널</a>
+  <a href="#contact" onclick="closeMenu()" data-ko="문의" data-en="Contact">문의</a>
+  <div class="mobile-menu-bottom">
+    <a href="https://smartstore.naver.com/peppernsalt" target="_blank" class="btn-gold" style="font-size:12px;padding:10px 18px" data-ko="스마트스토어 →" data-en="Smart Store →">스마트스토어 →</a>
+  </div>
+</div>
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow" data-ko="이탈리아 · 미국에서 대한민국의 식탁으로" data-en="From Italy and USA — To Your Table in Korea">이탈리아 · 미국에서 대한민국의 식탁으로</p>
+    <div class="hero-logo">CHESED</div>
+    <div class="hero-tagline" data-ko="변함없는 헌신 · 프리미엄 식품 수입 유통" data-en="Unwavering Dedication · Premium Food Import">변함없는 헌신 · 프리미엄 식품 수입 유통</div>
+    <p class="hero-desc" data-ko="2018년 설립, 이탈리아와 미국의 프리미엄 가공식품을 직수입 유통하는 전문 무역 기업입니다. De Cecco, Bragg, Twinings 등 세계적 브랜드를 한국 시장에 공급합니다." data-en="Established in 2018, CHESED specialises in importing and distributing premium processed foods from Italy and the USA — supplying world-class brands such as De Cecco, Bragg and Twinings to the Korean market.">2018년 설립, 이탈리아와 미국의 프리미엄 가공식품을 직수입 유통하는 전문 무역 기업입니다. De Cecco, Bragg, Twinings 등 세계적 브랜드를 한국 시장에 공급합니다.</p>
+    <div class="trust-row">
+      <div class="trust-item"><div class="trust-dot"></div><span data-ko="설립 2018년" data-en="Est. 2018">설립 2018년</span></div>
+      <div class="trust-item"><div class="trust-dot"></div><span data-ko="직수입 전문" data-en="Direct Import">직수입 전문</span></div>
+      <div class="trust-item"><div class="trust-dot"></div><span data-ko="전용 물류센터" data-en="Own Logistics">전용 물류센터</span></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#brands" class="btn-gold" data-ko="취급 브랜드 보기" data-en="View Our Brands">취급 브랜드 보기</a>
+      <a href="#contact" class="btn-ol" data-ko="파트너십 문의" data-en="Partnership Inquiry">파트너십 문의</a>
+    </div>
+  </div>
+  <!-- Slot 1: 히어로 이미지 — 교체: <img src="assets/images/slot1_hero.jpg" style="width:100%;height:100%;object-fit:cover"> -->
+  <div class="ph ph-1" style="height:calc(100vh - var(--nav-h));min-height:260px"><div class="ph-tag">Slot 1 — Hero Image</div></div>
+</section>
+<div class="gold-bar"><div class="gb-inner"><span class="gb-item">De Cecco</span><span class="gb-dot">·</span><span class="gb-item">Divella</span><span class="gb-dot">·</span><span class="gb-item">Barilla</span><span class="gb-dot">·</span><span class="gb-item">Bertolli</span><span class="gb-dot">·</span><span class="gb-item">Bragg</span><span class="gb-dot">·</span><span class="gb-item">Twinings</span><span class="gb-dot">·</span><span class="gb-item">Skippy</span><span class="gb-dot">·</span><span class="gb-item">Nestlé</span><span class="gb-dot">·</span><span class="gb-item">Kraft Heinz</span></div></div>
+<section class="about-wrap" id="about">
+  <div>
+    <p class="sec-label" data-ko="회사 소개" data-en="About Chesed">회사 소개</p>
+    <h2 class="sec-title">신뢰와 <span class="accent">헌신</span>으로<br>이어지는 맛</h2>
+    <p class="body-text" data-ko="헤세드(CHESED)는 히브리어로 변함없는 사랑과 헌신을 의미합니다. 2018년 설립 이래, 이탈리아와 미국의 프리미엄 가공식품을 한국 소비자에게 직접 전달하기 위해 노력해 왔습니다." data-en="CHESED derives from the Hebrew word meaning steadfast love and dedication. Since our founding in 2018, we have worked to bring premium imported foods from Italy and the USA directly to Korean consumers.">헤세드(CHESED)는 히브리어로 변함없는 사랑과 헌신을 의미합니다. 2018년 설립 이래, 이탈리아와 미국의 프리미엄 가공식품을 한국 소비자에게 직접 전달하기 위해 노력해 왔습니다.</p>
+    <p class="body-text" data-ko="경기도 용인시 자체 물류센터를 보유하여 안정적인 재고 관리와 신속한 배송 서비스를 제공합니다. 온라인, 오프라인 멀티채널을 통해 B2C와 B2B 시장을 동시에 공략합니다." data-en="With our own logistics centre in Yongin, Gyeonggi, we ensure stable inventory management and rapid delivery. We capture both B2C and B2B markets through multi-channel distribution.">경기도 용인시 자체 물류센터를 보유하여 안정적인 재고 관리와 신속한 배송 서비스를 제공합니다. 온라인, 오프라인 멀티채널을 통해 B2C와 B2B 시장을 동시에 공략합니다.</p>
+    <div class="co-info">
+      <div class="info-row"><div class="info-lbl" data-ko="대표이사" data-en="CEO">대표이사</div><div class="info-val" data-ko="김우재" data-en="Kim Woojae">김우재</div></div>
+      <div class="info-row"><div class="info-lbl" data-ko="설립일" data-en="Founded">설립일</div><div class="info-val" data-ko="2018년 3월" data-en="March 2018">2018년 3월</div></div>
+      <div class="info-row"><div class="info-lbl" data-ko="본사" data-en="HQ">본사</div><div class="info-val" data-ko="경기도 안양시 동안구 시민대로230 평촌아크로타워 B305-133" data-en="Pyeongchon Acro Tower B305-133, Siminno 230, Dongan-gu, Anyang, Gyeonggi">경기도 안양시 동안구 시민대로230 평촌아크로타워 B305-133</div></div>
+      <div class="info-row"><div class="info-lbl" data-ko="물류센터" data-en="Logistics">물류센터</div><div class="info-val" data-ko="경기도 용인시 모현읍 일산리 285-2 헤세드물류센터" data-en="Chesed Logistics Centre, 285-2 Ilsanri, Mohyeon-eup, Yongin">경기도 용인시 모현읍 일산리 285-2 헤세드물류센터</div></div>
+      <div class="info-row"><div class="info-lbl" data-ko="웹사이트" data-en="Website">웹사이트</div><div class="info-val">biott.co.kr · chesed.co.kr</div></div>
+      <div class="info-row"><div class="info-lbl" data-ko="이메일" data-en="Email">이메일</div><div class="info-val"><!-- TODO: EMAIL -->이메일 주소 입력 예정</div></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-num">IT·US</div><div class="stat-lbl" data-ko="이탈리아 · 미국 직수입" data-en="Italy &amp; USA Direct Import">이탈리아 · 미국 직수입</div></div>
+      <div class="stat-box"><div class="stat-num">B2C</div><div class="stat-lbl" data-ko="네이버 스마트스토어 페퍼앤솔트" data-en="Naver Smart Store — Pepper &amp; Salt">네이버 스마트스토어 페퍼앤솔트</div></div>
+      <div class="stat-box"><div class="stat-num">B2B</div><div class="stat-lbl" data-ko="레스토랑 · 카페 · 문구채널" data-en="Restaurants · Cafes · Office">레스토랑 · 카페 · 문구채널</div></div>
+      <div class="stat-box"><div class="stat-num">2018</div><div class="stat-lbl" data-ko="설립 이래 꾸준한 성장" data-en="Steady Growth Since Est.">설립 이래 꾸준한 성장</div></div>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="quote-box"><div class="quote-mark">"</div><div class="quote-text" data-ko="우리는 단순히 식품을 수입하는 것이 아니라, 문화와 맛의 정수를 전달합니다." data-en="We do not merely import food — we deliver the essence of culture and taste.">우리는 단순히 식품을 수입하는 것이 아니라, 문화와 맛의 정수를 전달합니다.</div></div>
+    <!-- Slot 2: 회사/물류/대표이사 사진 — 교체: <img src="assets/images/slot2_about.jpg" style="width:100%;height:100%;object-fit:cover"> -->
+    <div class="ph ph-2"><div class="ph-tag">Slot 2 — About Photo</div></div>
+  </div>
+</section>
+<!-- Slot 3: 풀와이드 식품 배너 — 교체: <img src="assets/images/slot3_food_banner.jpg" style="width:100%;height:100%;object-fit:cover"> -->
+<div class="ph ph-3"><div class="ph-tag">Slot 3 — Fullwidth Food Banner</div></div>
+<div class="gold-bar"><div class="gb-inner"><span class="gb-item">Italian Food</span><span class="gb-dot">·</span><span class="gb-item">Vinegar</span><span class="gb-dot">·</span><span class="gb-item">Black Tea</span><span class="gb-dot">·</span><span class="gb-item">Peanut Butter</span><span class="gb-dot">·</span><span class="gb-item">Sauces</span><span class="gb-dot">·</span><span class="gb-item">BBQ Sauce</span></div></div>
+<section class="brands-sec" id="brands">
+  <p class="sec-label" data-ko="취급 브랜드" data-en="Our Brands">취급 브랜드</p>
+  <h2 class="sec-title">세계적 프리미엄 <span class="accent">브랜드 라인업</span></h2>
+  <div class="brand-controls">
+    <div class="brand-filter-row" id="filter-row"></div>
+    <span style="font-family:var(--fb);font-size:11px;color:var(--muted)" id="brand-count"></span>
+  </div>
+  <div id="brand-grid"></div>
+</section>
+<div class="img-strip-3">
+  <div class="ph ph-4a strip-h"><div class="ph-tag">Slot 4A — Italian Food</div></div>
+  <div class="ph ph-4b strip-h"><div class="ph-tag">Slot 4B — Vinegar · Sauces</div></div>
+  <div class="ph ph-4c strip-h"><div class="ph-tag">Slot 4C — USA Premium</div></div>
+</div>
+<div class="gold-bar"><div class="gb-inner"><span class="gb-item">Licensed Importer</span><span class="gb-dot">·</span><span class="gb-item">Korean Market Specialist</span><span class="gb-dot">·</span><span class="gb-item">B2B &amp; B2C</span><span class="gb-dot">·</span><span class="gb-item">Long-Term Partnership</span></div></div>
+<section class="partner-sec" id="partners">
+  <p class="sec-label" data-ko="파트너십" data-en="Partnership">파트너십</p>
+  <h2 class="sec-title" style="margin-bottom:36px">신뢰를 바탕으로 한 <span class="accent">글로벌 파트너십</span></h2>
+  <div class="partner-layout">
+    <div class="partner-imgs">
+      <div class="ph ph-5a partner-img-main"><div class="ph-tag">Slot 5A</div></div>
+      <div class="ph ph-5b"><div class="ph-tag">Slot 5B</div></div>
+      <div class="ph ph-5c"><div class="ph-tag">Slot 5C</div></div>
+    </div>
+    <div>
+      <div class="partner-feature"><div class="pf-num">01</div><div><div class="pf-title" data-ko="현지 생산자 직계약" data-en="Direct Producer Contracts">현지 생산자 직계약</div><div class="pf-desc" data-ko="이탈리아 현지 농장 및 식품 제조사와 직접 계약하여 신선한 품질을 유지하고 중간 유통 마진을 제거합니다." data-en="We contract directly with Italian farms and manufacturers to maintain freshness and eliminate intermediary margins.">이탈리아 현지 농장 및 식품 제조사와 직접 계약하여 신선한 품질을 유지하고 중간 유통 마진을 제거합니다.</div></div></div>
+      <div class="partner-feature"><div class="pf-num">02</div><div><div class="pf-title" data-ko="미국 브랜드 공식 파트너" data-en="Official US Brand Partner">미국 브랜드 공식 파트너</div><div class="pf-desc" data-ko="Bragg, Skippy, Nestlé 등 미국 프리미엄 브랜드의 공식 수입 유통사로서 정품 공급 체계를 갖추고 있습니다." data-en="As an official importer for US premium brands including Bragg, Skippy and Nestlé, we guarantee authentic product supply.">Bragg, Skippy, Nestlé 등 미국 프리미엄 브랜드의 공식 수입 유통사로서 정품 공급 체계를 갖추고 있습니다.</div></div></div>
+      <div class="partner-feature"><div class="pf-num">03</div><div><div class="pf-title" data-ko="자체 물류 인프라" data-en="Own Logistics Infrastructure">자체 물류 인프라</div><div class="pf-desc" data-ko="경기도 용인시 전용 물류센터를 통해 수입부터 최종 배송까지 일관된 품질 관리와 신속한 공급망을 운영합니다." data-en="Our dedicated Yongin logistics centre manages the entire supply chain from import to delivery, ensuring quality and speed.">경기도 용인시 전용 물류센터를 통해 수입부터 최종 배송까지 일관된 품질 관리와 신속한 공급망을 운영합니다.</div></div></div>
+    </div>
+  </div>
+</section>
+<div class="ph ph-6"><div class="ph-tag">Slot 6 — Fullwidth Partnership Banner</div></div>
+<section class="creds">
+  <p class="sec-label" data-ko="공급사 신뢰 정보" data-en="Why Partner with Us">공급사 신뢰 정보</p>
+  <h2 class="sec-title">헤세드와 함께해야 하는 <span class="accent">이유</span></h2>
+  <div class="cred-grid">
+    <div class="cred-item"><div class="cred-icon">🔐</div><div class="cred-title" data-ko="정식 수입 면허" data-en="Licensed Importer">정식 수입 면허</div><div class="cred-desc" data-ko="식품의약품안전처 기준 준수 정식 수입업 등록 사업자" data-en="Fully registered food import licence compliant with Korean MFDS regulations">식품의약품안전처 기준 준수 정식 수입업 등록 사업자</div></div>
+    <div class="cred-item"><div class="cred-icon">📦</div><div class="cred-title" data-ko="자체 물류센터" data-en="Own Logistics">자체 물류센터</div><div class="cred-desc" data-ko="용인 전용 물류센터로 수입부터 배송까지 품질 일관성 보장" data-en="Dedicated Yongin logistics centre ensuring consistent quality from import to delivery">용인 전용 물류센터로 수입부터 배송까지 품질 일관성 보장</div></div>
+    <div class="cred-item"><div class="cred-icon">🇰🇷</div><div class="cred-title" data-ko="한국 시장 전문성" data-en="Korean Market Expertise">한국 시장 전문성</div><div class="cred-desc" data-ko="온라인, 문구, 폐쇄몰, 도소매 4채널 동시 운영으로 시장 커버리지 극대화" data-en="Maximum market coverage through 4 simultaneous channels">온라인, 문구, 폐쇄몰, 도소매 4채널 동시 운영으로 시장 커버리지 극대화</div></div>
+    <div class="cred-item"><div class="cred-icon">🤝</div><div class="cred-title" data-ko="장기 파트너십" data-en="Long-Term Partnership">장기 파트너십</div><div class="cred-desc" data-ko="단기 거래보다 장기적 브랜드 성장을 우선시하며 지속 가능한 성공을 함께 만듭니다" data-en="We prioritise long-term brand growth, building sustainable success with our supplier partners">단기 거래보다 장기적 브랜드 성장을 우선시하며 지속 가능한 성공을 함께 만듭니다</div></div>
+  </div>
+</section>
+<section class="strategy" id="strategy">
+  <p class="sec-label" data-ko="사업 전략" data-en="Business Strategy">사업 전략</p>
+  <h2 class="sec-title">헤세드의 <span class="accent">사업 전략</span></h2>
+  <p class="strat-intro" data-ko="프리미엄 수입 식품 시장에서 지속 가능한 성장을 위해 세 가지 핵심 전략을 추진합니다." data-en="We execute three core strategies to drive sustainable growth in Korea's premium imported food market.">프리미엄 수입 식품 시장에서 지속 가능한 성장을 위해 세 가지 핵심 전략을 추진합니다.</p>
+  <div class="strat-grid">
+    <div class="strat-card"><div class="strat-num">01</div><div class="strat-title" data-ko="직수입 및 가격 경쟁력" data-en="Direct Import &amp; Pricing">직수입 및 가격 경쟁력</div><div class="strat-desc" data-ko="현지 생산자 브랜드와 직접 계약하여 중간 마진을 제거합니다. 합리적인 가격으로 고품질 상품을 공급하는 것이 핵심 경쟁력입니다." data-en="By contracting directly with producers, we eliminate intermediary margins and deliver premium quality at competitive prices.">현지 생산자 브랜드와 직접 계약하여 중간 마진을 제거합니다. 합리적인 가격으로 고품질 상품을 공급하는 것이 핵심 경쟁력입니다.</div></div>
+    <div class="strat-card"><div class="strat-num">02</div><div class="strat-title" data-ko="멀티채널 유통 전략" data-en="Multi-Channel Distribution">멀티채널 유통 전략</div><div class="strat-desc" data-ko="스마트스토어 B2C, 쿠팡 11번가 등 온라인 플랫폼, 문구채널 총판, B2B 도소매를 동시에 운영합니다." data-en="We simultaneously operate B2C via Smart Store, major e-commerce platforms, stationery channel distribution, and B2B wholesale.">스마트스토어 B2C, 쿠팡 11번가 등 온라인 플랫폼, 문구채널 총판, B2B 도소매를 동시에 운영합니다.</div></div>
+    <div class="strat-card"><div class="strat-num">03</div><div class="strat-title" data-ko="카테고리 확장 및 브랜딩" data-en="Category Expansion &amp; Branding">카테고리 확장 및 브랜딩</div><div class="strat-desc" data-ko="이탈리안 식품, 식초, 차, 피넛버터에서 시작해 치즈, 스낵, 음료 등으로 포트폴리오를 확장합니다." data-en="Starting from Italian food, vinegar, tea and peanut butter, we are expanding into cheese, snacks and beverages.">이탈리안 식품, 식초, 차, 피넛버터에서 시작해 치즈, 스낵, 음료 등으로 포트폴리오를 확장합니다.</div></div>
+  </div>
+</section>
+<div class="img-duo">
+  <div class="ph ph-7a duo-h"><div class="ph-tag">Slot 7A — Logistics Centre</div></div>
+  <div class="ph ph-7b duo-h"><div class="ph-tag">Slot 7B — B2B Delivery</div></div>
+</div>
+<section class="channels" id="channels">
+  <p class="sec-label" data-ko="유통 채널" data-en="Distribution Channels">유통 채널</p>
+  <h2 class="sec-title">4대 유통 <span class="accent">채널 운영</span></h2>
+  <div class="ch-grid">
+    <div class="ch-card"><div class="ch-icon" style="background:#03C75A">🛒</div><div class="ch-name" data-ko="온라인 채널" data-en="Online Channels">온라인 채널</div><div class="ch-desc" data-ko="주요 이커머스 플랫폼을 통한 전국 B2C 판매" data-en="B2C sales via major e-commerce platforms">주요 이커머스 플랫폼을 통한 전국 B2C 판매</div><div class="ch-tags"><span class="ch-tag">· 스마트스토어 (페퍼앤솔트)</span><span class="ch-tag">· 쿠팡, 지마켓, 옥션</span><span class="ch-tag">· 11번가, 카카오쇼핑</span></div><a href="https://smartstore.naver.com/peppernsalt" target="_blank" class="ch-link" data-ko="스토어 바로가기" data-en="Visit Store">스토어 바로가기</a></div>
+    <div class="ch-card"><div class="ch-icon">🏢</div><div class="ch-name" data-ko="폐쇄몰 채널" data-en="Private Mall">폐쇄몰 채널</div><div class="ch-desc" data-ko="기업 복지몰, 인플루언서, SNS 채널 등 폐쇄형 유통망" data-en="Corporate welfare malls, influencer and SNS networks">기업 복지몰, 인플루언서, SNS 채널 등 폐쇄형 유통망</div><div class="ch-tags"><span class="ch-tag">· BtoC 복지몰</span><span class="ch-tag">· 온라인 폐쇄몰</span><span class="ch-tag">· SNS 채널</span></div></div>
+    <div class="ch-card"><div class="ch-icon">📚</div><div class="ch-name" data-ko="문구채널 총판" data-en="Stationery Channel">문구채널 총판</div><div class="ch-desc" data-ko="전산 문구용품 채널 총판 — 오피스 시장 안정적 유통" data-en="Official stationery and office supply channel distributor">전산 문구용품 채널 총판 — 오피스 시장 안정적 유통</div><div class="ch-tags"><span class="ch-tag">· 오피스디포, 알파문구</span><span class="ch-tag">· 드림디포, 오피스넥스</span><span class="ch-tag">· 큐브릿지, 링코 등</span></div></div>
+    <div class="ch-card"><div class="ch-icon">🏭</div><div class="ch-name" data-ko="도소매 채널" data-en="Wholesale">도소매 채널</div><div class="ch-desc" data-ko="대도매, 일반도매상, 온라인벤더 B2B 대량 공급" data-en="Bulk supply through wholesalers, distributors and online vendors">대도매, 일반도매상, 온라인벤더 B2B 대량 공급</div><div class="ch-tags"><span class="ch-tag">· 대도매</span><span class="ch-tag">· 일반 도매상</span><span class="ch-tag">· 온라인 벤더</span></div><a href="#contact" class="ch-link" data-ko="B2B 문의" data-en="B2B Enquiry">B2B 문의</a></div>
+  </div>
+</section>
+<section class="roadmap">
+  <p class="sec-label" data-ko="개발 로드맵" data-en="Development Roadmap">개발 로드맵</p>
+  <h2 class="sec-title">헤세드의 <span class="accent">성장 로드맵</span></h2>
+  <div class="rm-grid">
+    <div class="rm-card"><div class="rm-phase">Phase 1 — Current</div><div class="rm-title" data-ko="브랜드 홈페이지 및 스마트스토어" data-en="Brand Website and Smart Store">브랜드 홈페이지 및 스마트스토어</div><div class="rm-desc" data-ko="회사 소개 홈페이지 운영 및 스마트스토어 페퍼앤솔트 B2C 판매." data-en="Operating brand website and B2C sales through Naver Smart Store Pepper and Salt.">회사 소개 홈페이지 운영 및 스마트스토어 페퍼앤솔트 B2C 판매.</div><div class="rm-badge">Active</div></div>
+    <div class="rm-card"><div class="rm-phase">Phase 2 — Upcoming</div><div class="rm-title" data-ko="자체 쇼핑몰 및 백엔드 구축" data-en="Own E-commerce and Backend">자체 쇼핑몰 및 백엔드 구축</div><div class="rm-desc" data-ko="백엔드 연동 자체 쇼핑몰, 게시판, 리뷰, 회원 시스템 구현." data-en="Building owned e-commerce with backend, boards, reviews and membership.">백엔드 연동 자체 쇼핑몰, 게시판, 리뷰, 회원 시스템 구현.</div><div class="rm-badge">In Development</div></div>
+    <div class="rm-card"><div class="rm-phase">Phase 3 — Future</div><div class="rm-title" data-ko="B2B 포털 및 카테고리 확장" data-en="B2B Portal and Expansion">B2B 포털 및 카테고리 확장</div><div class="rm-desc" data-ko="기업 고객 전용 주문 재고 관리 포털 및 치즈, 스낵, 음료 카테고리 확대." data-en="Dedicated B2B ordering portal and diversification into cheese, snacks and beverages.">기업 고객 전용 주문 재고 관리 포털 및 치즈, 스낵, 음료 카테고리 확대.</div><div class="rm-badge">Planned</div></div>
+  </div>
+</section>
+<section class="contact" id="contact">
+  <div>
+    <p class="sec-label" data-ko="문의하기" data-en="Get in Touch">문의하기</p>
+    <h2 class="sec-title">함께 <span class="accent">시작해요</span></h2>
+    <p class="ct-desc" data-ko="제품 구매, B2B 거래, 해외 공급사 파트너십 등 어떤 문의든 환영합니다. 영어와 한국어 모두 응대 가능합니다." data-en="Consumer purchases, B2B orders, overseas supplier partnerships — all enquiries welcome. We respond in both Korean and English.">제품 구매, B2B 거래, 해외 공급사 파트너십 등 어떤 문의든 환영합니다. 영어와 한국어 모두 응대 가능합니다.</p>
+    <div class="ct-info">
+      <div class="ct-row"><span class="ct-lbl">Company</span><span class="ct-val">CHESED Co., Ltd. (주식회사 헤세드)</span></div>
+      <div class="ct-row"><span class="ct-lbl">CEO</span><span class="ct-val" data-ko="김우재 대표이사" data-en="Kim Woojae, CEO">김우재 대표이사</span></div>
+      <div class="ct-row"><span class="ct-lbl">Email</span><span class="ct-val"><!-- TODO: EMAIL -->이메일 입력 예정</span></div>
+      <div class="ct-row"><span class="ct-lbl">Store</span><span class="ct-val">smartstore.naver.com/peppernsalt</span></div>
+      <div class="ct-row"><span class="ct-lbl">Website</span><span class="ct-val">biott.co.kr · chesed.co.kr</span></div>
+      <div class="ct-row"><span class="ct-lbl">HQ</span><span class="ct-val" data-ko="경기도 안양시 동안구 시민대로230" data-en="Siminno 230, Dongan-gu, Anyang, Gyeonggi">경기도 안양시 동안구 시민대로230</span></div>
+    </div>
+  </div>
+  <div>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="ct-form">
+      <input type="text" name="name" id="f-name" placeholder="성함 / Full Name" required>
+      <input type="email" name="email" id="f-email" placeholder="이메일 / Email" required>
+      <input type="text" name="company" id="f-company" placeholder="회사명 / Company">
+      <textarea name="message" id="f-msg" placeholder="문의 내용 / Message (Korean or English)" required></textarea>
+      <!-- Formspree hidden inputs -->
+      <input type="hidden" name="_subject" value="CHESED 홈페이지 새로운 문의" />
+      <input type="hidden" name="_next" value="#" />
+      <button type="submit" class="ct-submit" id="submit-btn">문의 보내기</button>
+    </form>
+  </div>
+</section>
+<div class="footer-gold"></div>
+<footer>
+  <div class="footer-logo">CHESED</div>
+  <div class="footer-links">
+    <a href="#about" data-ko="회사소개" data-en="About">회사소개</a>
+    <a href="#brands" data-ko="취급브랜드" data-en="Brands">취급브랜드</a>
+    <a href="#partners" data-ko="파트너십" data-en="Partners">파트너십</a>
+    <a href="#channels" data-ko="유통채널" data-en="Channels">유통채널</a>
+    <a href="#contact" data-ko="문의" data-en="Contact">문의</a>
+    <a href="https://smartstore.naver.com/peppernsalt" target="_blank">Pepper &amp; Salt ↗</a>
+  </div>
+  <div class="footer-copy">&copy; 2025 CHESED Co., Ltd. All Rights Reserved.</div>
+</footer>
+<script>
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BRAND DATA — 브랜드 추가/수정/삭제는 이 배열만 수정
+   category: 'italian' | 'vinegar' | 'usa' | 'etc'
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+var BRANDS=[
+  {name:'DE CECCO',origin:'🇮🇹 Italy · Est.1886',cat_ko:'파스타 · 올리브오일',cat_en:'Pasta · Olive Oil',category:'italian'},
+  {name:'DIVELLA',origin:'🇮🇹 Italy',cat_ko:'파스타 · 소스',cat_en:'Pasta · Sauce',category:'italian'},
+  {name:'BARILLA',origin:'🇮🇹 Italy · Est.1877',cat_ko:'파스타',cat_en:'Pasta',category:'italian'},
+  {name:'BERTOLLI',origin:'🇮🇹 Italy · Est.1865',cat_ko:'올리브오일 · 소스',cat_en:'Olive Oil · Sauce',category:'italian'},
+  {name:'BRAGG',origin:'🇺🇸 USA',cat_ko:'애플사이다 식초',cat_en:'Apple Cider Vinegar',category:'vinegar'},
+  {name:'DE NIGRIS',origin:'🇮🇹 Italy',cat_ko:'식초 · 발사믹',cat_en:'Vinegar · Balsamic',category:'vinegar'},
+  {name:'LEONARDI',origin:'🇮🇹 Italy · Est.1871',cat_ko:'발사믹 식초',cat_en:'Balsamic Vinegar',category:'vinegar'},
+  {name:'PONTI',origin:'🇮🇹 Italy · Est.1867',cat_ko:'식초 · 올리브오일',cat_en:'Vinegar · Olive Oil',category:'vinegar'},
+  {name:'ANDREA MILANO',origin:'🇮🇹 Italy',cat_ko:'식초',cat_en:'Vinegar',category:'vinegar'},
+  {name:'VERMONT VILLAGE',origin:'🇺🇸 USA',cat_ko:'애플사이다 식초',cat_en:'Apple Cider Vinegar',category:'vinegar'},
+  {name:'TWININGS',origin:'🇬🇧 UK · Est.1706',cat_ko:'홍차 · 허브티',cat_en:'Black Tea · Herbal',category:'usa'},
+  {name:'SKIPPY',origin:'🇺🇸 USA',cat_ko:'피넛버터',cat_en:'Peanut Butter',category:'usa'},
+  {name:'LUCKY ALVIN',origin:'🇵🇱 Poland',cat_ko:'피넛버터',cat_en:'Peanut Butter',category:'usa'},
+  {name:'NESTLÉ',origin:'🇨🇭 Switzerland',cat_ko:'음료 · 식품',cat_en:'Beverages · Food',category:'usa'},
+  {name:'KRAFT HEINZ',origin:'🇺🇸 USA',cat_ko:'소스 · 조미료',cat_en:'Sauces · Condiments',category:'usa'},
+  {name:'CONAGRA FOODS',origin:'🇺🇸 USA',cat_ko:'소스 · 가공식품',cat_en:'Sauces · Processed Food',category:'usa'},
+  {name:"WRIGHT'S",origin:'🇺🇸 USA',cat_ko:'BBQ 소스',cat_en:'BBQ Sauce',category:'usa'},
+  {name:'FAMILIA',origin:'🇨🇭 Switzerland',cat_ko:'그래놀라 · 시리얼',cat_en:'Granola · Cereal',category:'etc'},
+  {name:'LITTOS',origin:'🇸🇰 Slovakia',cat_ko:'스낵 · 과자',cat_en:'Snacks',category:'etc'},
+  {name:'SUNVIEW',origin:'🇺🇸 USA',cat_ko:'건포도',cat_en:'Raisins',category:'etc'},
+];
+var CATS=[
+  {key:'all',label_ko:'전체',label_en:'All'},
+  {key:'italian',label_ko:'이탈리안 식품',label_en:'Italian Food'},
+  {key:'vinegar',label_ko:'식초 · 오일',label_en:'Vinegar · Oil'},
+  {key:'usa',label_ko:'미국 · 국제',label_en:'USA · Intl'},
+  {key:'etc',label_ko:'스낵 · 기타',label_en:'Snacks · Etc'},
+];
+var currentLang='ko',currentFilter='all',menuOpen=false;
+function renderBrands(){
+  var g=document.getElementById('brand-grid');
+  var f=currentFilter==='all'?BRANDS:BRANDS.filter(function(b){return b.category===currentFilter;});
+  document.getElementById('brand-count').textContent=currentLang==='ko'?'총 '+f.length+'개 브랜드':f.length+' brands';
+  g.innerHTML='';
+  f.forEach(function(b,i){
+    var d=document.createElement('div');d.className='brand-slot';d.style.animationDelay=(i*.04)+'s';
+    d.innerHTML='<div class="brand-slot-name">'+b.name+'</div><div class="brand-slot-origin">'+b.origin+'</div><div class="brand-slot-cat">'+(currentLang==='ko'?b.cat_ko:b.cat_en)+'</div>';
+    g.appendChild(d);
+  });
+}
+function renderFilters(){
+  var r=document.getElementById('filter-row');r.innerHTML='';
+  CATS.forEach(function(c){
+    var b=document.createElement('button');b.className='filter-btn'+(currentFilter===c.key?' on':'');
+    b.textContent=currentLang==='ko'?c.label_ko:c.label_en;
+    b.onclick=function(){currentFilter=c.key;renderFilters();renderBrands();};
+    r.appendChild(b);
+  });
+}
+function setLang(lang){
+  currentLang=lang;
+  document.getElementById('btn-ko').classList.toggle('active',lang==='ko');
+  document.getElementById('btn-en').classList.toggle('active',lang==='en');
+  document.querySelectorAll('[data-ko][data-en]').forEach(function(el){el.textContent=lang==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-en');});
+  var ph=lang==='ko'?['성함 / Full Name','이메일 / Email','회사명 / Company','문의 내용 (한국어 또는 영문)']:['Full Name','Email','Company','Your Message (English or Korean)'];
+  ['f-name','f-email','f-company','f-msg'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.placeholder=ph[i];});
+  document.getElementById('submit-btn').textContent=lang==='ko'?'문의 보내기':'Send Message';
+  renderFilters();renderBrands();
+}
+function toggleMenu(){menuOpen=!menuOpen;document.getElementById('mobile-menu').classList.toggle('open',menuOpen);document.getElementById('hbg').classList.toggle('open',menuOpen);}
+function closeMenu(){menuOpen=false;document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hbg').classList.remove('open');}
+
+/* Auth Modal Logic */
+var isSignup = false;
+function openAuthModal() { document.getElementById('auth-modal').classList.add('open'); }
+function closeAuthModal() { document.getElementById('auth-modal').classList.remove('open'); }
+function toggleAuthMode() {
+  isSignup = !isSignup;
+  var title = document.getElementById('auth-title');
+  var nameInput = document.getElementById('auth-name');
+  var submitBtn = document.getElementById('auth-submit');
+  var toggleTxt = document.getElementById('auth-toggle');
+  
+  if (isSignup) {
+    title.textContent = "REGISTER";
+    nameInput.style.display = 'block';
+    nameInput.required = true;
+    submitBtn.textContent = currentLang === 'ko' ? "회원가입" : "Sign Up";
+    toggleTxt.innerHTML = "이미 계정이 있으신가요? <span onclick='toggleAuthMode()'>로그인</span>";
+  } else {
+    title.textContent = "LOGIN";
+    nameInput.style.display = 'none';
+    nameInput.required = false;
+    submitBtn.textContent = currentLang === 'ko' ? "로그인" : "Login";
+    toggleTxt.innerHTML = "계정이 없으신가요? <span onclick='toggleAuthMode()'>회원가입</span>";
+  }
+}
+function handleAuth(e) {
+  e.preventDefault();
+  // Phase 2에서 Backend API(FastAPI) 연결 시 이 부분에 axios/fetch 적용 예정
+  alert("현재 백엔드 구축 단계입니다. Phase 2 업데이트를 기대해주세요!");
+  closeAuthModal();
+}
+
+document.addEventListener('click',function(e){
+  var nav=document.querySelector('nav');var menu=document.getElementById('mobile-menu');
+  if(menuOpen&&!nav.contains(e.target)&&!menu.contains(e.target))closeMenu();
+});
+renderFilters();renderBrands();
+</script>
+</body>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHESED — V2 Minimalist</title>
+<!--
+  ============================================================
+  CHESED 홈페이지 — V2 MINIMALIST B&W
+  
+  [핵심 유지보수 규정]
+  1. 관리자 편의성: 폰트는 바로 아래 :root 변수에서만 바꾸면 전체 갱신됨
+  2. 투명 슬롯: 이미지 슬롯들은 흰 배경+얇은 실선만 존재하며 어드민에서 이미지 URL 주입 가능성 고려
+  3. 보안: (Phase 2 연계 시점)
+  ============================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* =========================================
+   1. CMS 관리용 폰트/컬러 변수 (어드민 연동 타겟)
+   ========================================= */
+:root {
+  /* 글로벌 폰트 관리 (현재 모던 산세리프 Inter + 클래식 세리프 Playfair Display 혼합) */
+  --font-display: 'Inter', sans-serif;   /* 대형 타이틀용 */
+  --font-body: 'Inter', sans-serif;      /* 본문용 */
+  --font-accent: 'Playfair Display', serif; /* 클래식 포인트 요소용 */
+
+  /* 컬러 관리 (세련된 다크네이비 톤 적용) */
+  --bg-color: #ffffff;
+  --text-main: #0C1A30; /* 매우 짙은 네이비 (거의 블랙에 가까움) */
+  --text-muted: #56647B;
+  --text-light: #94A3B8;
+  
+  /* 테두리 (Border) 선 두께 및 색상 */
+  --line-color: #E2E8F0;
+  --line-dark: #0C1A30;
+  /* 폰트/로고 사이즈 및 색상 옵션 (어드민 연동 타겟) */
+  --logo-font: 'Inter', sans-serif;
+  --logo-color: #0C1A30;
+  --logo-size: clamp(24px, 3vw, 36px);
+  --logo-img-height: 32px;
+
+  --nav-h: 70px;
+}
+
+/* =========================================
+   2. Reset & Base
+   ========================================= */
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { 
+  background: var(--bg-color); 
+  color: var(--text-main); 
+  font-family: var(--font-body); 
+  -webkit-font-smoothing: antialiased; 
+  line-height: 1.6;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* =========================================
+   3. Typography Classes (에디토리얼 스타일)
+   ========================================= */
+.h-display { font-family:var(--font-display); font-size:clamp(48px, 8vw, 120px); font-weight:500; line-height:1.25; letter-spacing:-0.03em; overflow:visible; }
+.h-section { font-family:var(--font-display); font-size:clamp(32px, 5vw, 64px); font-weight:500; line-height:1.1; letter-spacing:-0.02em; }
+.h-sub { font-family:var(--font-display); font-size:clamp(16px, 2vw, 24px); font-weight:500; }
+.t-body { font-family:var(--font-body); font-size:clamp(14px, 1.5vw, 16px); font-weight:300; line-height:1.8; color:var(--text-muted); }
+.t-small { font-family:var(--font-body); font-size:12px; font-weight:400; color:var(--text-light); text-transform:uppercase; letter-spacing:1px; }
+
+/* 레이아웃 여백 요소 */
+.container { padding: 0 4vw; }
+.pt-120 { padding-top: 120px; }
+.pb-120 { padding-bottom: 120px; }
+.my-120 { margin-top: 120px; margin-bottom: 120px; }
+.divider { width: 100%; border-top: var(--line-width) solid var(--line-dark); }
+.divider-light { width: 100%; border-top: var(--line-width) solid var(--line-color); }
+
+/* =========================================
+   4. Navigation
+   ========================================= */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-h);
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+  border-bottom: var(--line-width) solid var(--line-color);
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 100; padding: 0 4vw;
+}
+.nav-logo { display:flex; align-items:center; }
+.logo-text { font-family: var(--logo-font); font-size: var(--logo-size); font-weight: 700; color: var(--logo-color); letter-spacing: -0.5px; }
+.logo-img { display: none; height: var(--logo-img-height); width: auto; object-fit: contain; }
+.nav-menu { display: flex; gap: 32px; list-style: none; }
+.nav-menu a { font-size: 13px; font-weight: 500;  }
+.nav-utils { display: flex; align-items: center; gap: 20px; }
+.btn-text { font-family: var(--font-body); font-size: 13px; font-weight: 500; cursor: pointer; border: none; background: none; }
+.lang-toggle { display: flex; gap: 8px; font-size: 11px; font-weight: 600; opacity: 0.6; cursor: pointer;}
+.lang-active { opacity: 1; text-decoration: underline; }
+
+/* 모바일 메뉴버튼 */
+.btn-mobile-menu { display:none; background:none; border:none; font-size:24px; cursor:pointer;}
+
+/* =========================================
+   5. Hero Section
+   ========================================= */
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
+.hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; padding-top: calc(var(--nav-h) + 40px); margin-top: auto; padding-bottom: 80px; }
+.hero-text-block { max-width: 500px; }
+
+/* 이미지 슬롯 (관리자 페이지에 의한 연동용, 투명/테두리 스타일) */
+/* 레퍼런스의 레이아웃처럼 크고 각진 비율 */
+.img-slot {
+  background: transparent;
+  border: var(--line-width) solid var(--line-color);
+  position: relative;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.3s;
+}
+.img-slot:hover { border-color: var(--line-dark); }
+/* 어떤 화면이든 이미지가 잘리지 않도록 (원본 비율대로) 출력 */
+.img-slot { aspect-ratio: auto !important; height: auto !important; }
+.img-slot img { object-fit: contain; width: 100%; height: auto; display: block; }
+.slot-label {
+  position: absolute; font-size: 10px; color: var(--text-light); text-transform: uppercase;
+  font-family: var(--font-body); letter-spacing: 1px;
+}
+
+.hero-img { width: 100%; height: 60vh; min-height: 400px; }
+
+/* =========================================
+   6. Editorial Grid Layouts
+   ========================================= */
+/* Section Header (Number + Title) */
+.sec-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 60px; border-bottom: 1px solid var(--line-dark); padding-bottom: 20px;}
+.sec-num { font-family: var(--font-display); font-size: clamp(24px, 4vw, 48px); font-weight: 300; }
+
+/* Work / About Grid */
+.grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; }
+.grid-2col-asym { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 4vw; }
+.grid-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; }
+.grid-4col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1vw; }
+
+.slot-landscape { width: 100%; aspect-ratio: 16/9; }
+.slot-portrait { width: 100%; aspect-ratio: 3/4; }
+.slot-square { width: 100%; aspect-ratio: 1/1; }
+
+.text-group { margin-top: 16px; }
+.text-group .h-sub { margin-bottom: 8px; }
+
+/* 브랜드 시스템 */
+.brand-filter { display: flex; gap: 24px; margin-bottom: 40px; border-bottom: 1px solid var(--line-color); padding-bottom: 16px;}
+.brand-filter button { background: none; border: none; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text-muted); padding-bottom: 4px; position:relative;}
+.brand-filter button.active { color: var(--text-main); }
+.brand-filter button.active::after { content:''; position:absolute; left:0; bottom:-17px; width:100%; height:1px; background:var(--text-main); }
+
+.brand-item {
+  border: 1px solid var(--line-color); padding: 32px 20px;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  transition: all 0.3s;
+  text-align: center;
+}
+.brand-item:hover { border-color: var(--text-main); }
+.brand-name { font-size: 16px; font-weight: 600; font-family: var(--font-display); margin-bottom: 6px;}
+
+/* 문의 폼 */
+.form-minimal input, .form-minimal textarea {
+  width: 100%; border: none; border-bottom: 1px solid var(--line-color);
+  padding: 16px 0; font-size: 14px; font-family: var(--font-body);
+  margin-bottom: 24px; background: transparent; outline: none;
+  transition: border-color 0.3s;
+}
+.form-minimal input:focus, .form-minimal textarea:focus { border-bottom-color: var(--text-main); }
+.form-minimal textarea { resize: vertical; min-height: 80px; }
+.btn-black { 
+  background: var(--text-main); color: #fff; border: none; 
+  padding: 16px 32px; font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+  width: 100%; transition: opacity 0.3s;
+}
+.btn-black:hover { opacity: 0.8; }
+
+/* 푸터 */
+footer { padding: 60px 4vw; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line-color); margin-top: 120px;}
+
+/* =========================================
+   7. Carousel / Slider
+   ========================================= */
+.carousel-wrap { position: relative; width: 100%; overflow: hidden; padding: 10px 0; }
+.carousel-track { display: flex; gap: 1vw; transition: transform 0.5s ease-in-out; }
+.carousel-slide { 
+  min-width: calc(50% - 0.5vw); 
+  flex-shrink: 0; 
+  transition: all 0.3s;
+}
+/* 홀수/짝수 슬롯 높낮이 엇갈림 효과 자동 적용 (무한 확장 가능) */
+.carousel-slide:nth-child(even) { transform: translateY(40px); }
+
+/* 화살표 버튼 (하얀 투명 세모) */
+.carousel-btn { 
+  position: absolute; top: 50%; transform: translateY(-50%); 
+  background: rgba(255,255,255,0.85); color: var(--text-main); 
+  border: 1px solid var(--line-color); border-radius: 50%; width: 44px; height: 44px; 
+  font-size: 14px; cursor: pointer; z-index: 10; display:flex; align-items:center; justify-content:center;
+  transition: all 0.3s; backdrop-filter: blur(4px);
+}
+.carousel-btn:hover { background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.carousel-btn.prev { left: 8px; }
+.carousel-btn.next { right: 8px; }
+
+/* =========================================
+   8. Modals
+   ========================================= */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 999; justify-content: center; align-items: center; }
+.modal.open { display: flex; }
+.modal-content { width: 100%; max-width: 400px; padding: 40px; border: 1px solid var(--line-dark); background: #fff; position:relative;}
+.modal-close { position:absolute; top: 16px; right: 16px; background:none; border:none; font-size:24px; cursor:pointer;}
+.modal-title { font-size: 24px; font-weight: 600; margin-bottom: 32px; font-family: var(--font-display);}
+
+/* =========================================
+   8. Responsive
+   ========================================= */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; gap: 40px; padding-top: calc(var(--nav-h) + 20px); }
+  .grid-4col { grid-template-columns: repeat(2, 1fr); }
+  
+  .carousel-slide { min-width: 100%; }
+}
+@media (max-width: 768px) {
+  .nav-menu { display: none; }
+  .btn-mobile-menu { display: block; }
+  .grid-2col, .grid-2col-asym, .grid-3col { grid-template-columns: 1fr; }
+  .sec-header { flex-direction: column; align-items: flex-start; }
+  .sec-num { margin-bottom: 8px; }
+  .brand-filter { overflow-x: auto; white-space: nowrap; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <a href="#" style="display:flex; align-items:center;">
+      <!-- 텍스트 로고 사용 시 (기본값) -->
+      <span class="logo-text">CHESED</span>
+      <!-- 이미지 로고 사용 시 (어드민에서 이미지 업로드 시 .logo-text를 숨기고 이걸 표시) -->
+      <img class="logo-img" src="assets/logo/logo.png" alt="CHESED">
+    </a>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="#about" data-ko="회사소개" data-en="About">회사소개</a></li>
+    <li><a href="#brands" data-ko="취급브랜드" data-en="Brands">취급브랜드</a></li>
+    <li><a href="#partners" data-ko="비즈니스 전략" data-en="Business">비즈니스 전략</a></li>
+  </ul>
+  <div class="nav-utils">
+    <div class="lang-toggle">
+      <span id="btn-ko" class="lang-active" onclick="setLang('ko')">KR</span>
+      <span id="btn-en" onclick="setLang('en')">EN</span>
+    </div>
+    <button class="btn-text" onclick="openModal()" data-ko="로그인" data-en="Login">로그인</button>
+    <a href="#contact" class="btn-text" data-ko="문의" data-en="Contact">문의</a>
+    <button class="btn-mobile-menu">☰</button>
+  </div>
+</nav>
+
+<!-- Auth Modal UI -->
+<div id="auth-modal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="auth-title">로그인</div>
+    <form class="form-minimal" onsubmit="handleAuth(event)">
+      <input type="text" id="auth-name" placeholder="이름 / Name" style="display:none;">
+      <input type="email" id="auth-email" placeholder="이메일 / Email" required>
+      <input type="password" id="auth-password" placeholder="비밀번호 / Password" required>
+      <button type="submit" class="btn-black" id="auth-submit">LOGIN</button>
+    </form>
+    <div style="margin-top:20px; font-size:12px; color:var(--text-muted); text-align:center;">
+      <span data-ko="회원이 아니신가요?" data-en="No account?">회원이 아니신가요?</span> 
+      <button onclick="toggleAuth()" style="background:none;border:none;border-bottom:1px solid #000;cursor:pointer;margin-left:8px;font-weight:600;">Sign Up</button>
+    </div>
+  </div>
+</div>
+
+<div class="container hero">
+  <div class="hero-content">
+    <div style="margin-top: 25px;">
+      <h1 class="h-display" data-ko="식탁의 본질" data-en="Forming Essentials">식탁의 본질</h1>
+    </div>
+    <div class="hero-text-block">
+      <p class="t-body" data-ko="이탈리아와 미국에서 대한민국의 식탁으로. 우리는 세계적 수준의 프리미엄 브랜드를 한국 시장에 공급하며 음식 문화의 새로운 관점을 제시합니다." data-en="From Italy and the US to the tables of Korea. We supply world-class premium brands, presenting a new perspective on food culture.">이탈리아와 미국에서 대한민국의 식탁으로. 우리는 세계적 수준의 프리미엄 브랜드를 한국 시장에 공급하며 음식 문화의 새로운 관점을 제시합니다.</p>
+    </div>
+  </div>
+  
+  <div class="img-slot hero-img" style="border:none;">
+    <img src="assets/images/01.png" alt="Hero Image">
+  </div>
+</div>
+
+<div class="container pt-120" id="about">
+  <div class="sec-header">
+    <h2 class="h-section" data-ko="소개" data-en="Overview">소개</h2>
+    <span class="sec-num">1.0</span>
+  </div>
+  
+  <div class="grid-2col-asym">
+    <div>
+      <div class="t-small" data-ko="CHESED" data-en="CHESED">CHESED</div>
+      <h3 class="h-sub" style="margin-top:16px;" data-ko="변함없는 사랑과 헌신" data-en="Steadfast Dedication">변함없는 사랑과 헌신</h3>
+      <p class="t-body" style="margin-top:24px;" data-ko="2018년 설립된 헤세드는 전용 물류센터 인프라와 강력한 파트너십을 바탕으로 B2B와 B2C 멀티채널을 구축했습니다. 단순한 유통을 넘어 브랜드의 고유한 가치를 전달합니다." data-en="Founded in 2018, Chesed has built multi-channel distribution through dedicated infrastructure and strong partnerships. We deliver the intrinsic value of brands beyond simple distribution.">2018년 설립된 헤세드는 전용 물류센터 인프라와 강력한 파트너십을 바탕으로 B2B와 B2C 멀티채널을 구축했습니다. 단순한 유통을 넘어 브랜드의 고유한 가치를 전달합니다.</p>
+    </div>
+    
+    <!-- 확장 가능하도록 구성된 롤링 슬라이드 영역 (총 8개 샘플슬롯 탑재) -->
+    <div class="carousel-wrap">
+      <!-- 좌측 버튼 -->
+      <button class="carousel-btn prev" onclick="moveCarousel(-1)">◀</button>
+      
+      <div class="carousel-track" id="about-track">
+        <!-- Slot 1 -->
+        <div class="carousel-slide img-slot slot-portrait" style="border:none;"><img src="assets/images/02.png" alt="About Img 1"></div>
+        <!-- Slot 2 -->
+        <div class="carousel-slide img-slot slot-portrait" style="border:none;"><img src="assets/images/03.png" alt="About Img 2"></div>
+        <!-- Slot 3 -->
+        <div class="carousel-slide img-slot slot-portrait"><span class="slot-label">Upload Slot 3</span></div>
+        <!-- Slot 4 -->
+        <div class="carousel-slide img-slot slot-portrait"><span class="slot-label">Upload Slot 4</span></div>
+        <!-- Slot 5 -->
+        <div class="carousel-slide img-slot slot-portrait"><span class="slot-label">Upload Slot 5</span></div>
+        <!-- Slot 6 -->
+        <div class="carousel-slide img-slot slot-portrait"><span class="slot-label">Upload Slot 6</span></div>
+        <!-- Slot 7 -->
+        <div class="carousel-slide img-slot slot-portrait"><span class="slot-label">Upload Slot 7</span></div>
+        <!-- Slot 8 -->
+        <div class="carousel-slide img-slot slot-portrait"><span class="slot-label">Upload Slot 8</span></div>
+      </div>
+      
+      <!-- 우측 버튼 -->
+      <button class="carousel-btn next" onclick="moveCarousel(1)">▶</button>
+    </div>
+  </div>
+</div>
+
+<div class="container pt-120" id="brands">
+  <div class="sec-header">
+    <h2 class="h-section" data-ko="포트폴리오" data-en="Portfolio">포트폴리오</h2>
+    <span class="sec-num">2.0</span>
+  </div>
+  
+  <div class="brand-filter" id="filter-row">
+    <!-- JS render -->
+  </div>
+  
+  <div class="grid-4col" id="brand-grid">
+    <!-- JS render -->
+  </div>
+  
+  <div class="grid-3col" style="margin-top: 40px; gap: 1vw;">
+     <div class="img-slot slot-square" style="border:none;"><img src="assets/images/05.png" alt="Product Shot 1"></div>
+     <div class="img-slot slot-square"><span class="slot-label">Product Shot 2</span></div>
+     <div class="img-slot slot-square"><span class="slot-label">Product Shot 3</span></div>
+  </div>
+</div>
+
+<div class="container pt-120" id="partners">
+  <div class="sec-header">
+    <h2 class="h-section" data-ko="거점 및 채널" data-en="Infrastructure">거점 및 채널</h2>
+    <span class="sec-num">3.0</span>
+  </div>
+  
+  <div class="img-slot slot-landscape" style="height:400px; border:none;">
+    <img src="assets/images/04.png" alt="Logistics Panorama">
+  </div>
+  
+  <div class="grid-3col" style="margin-top: 40px;">
+    <div>
+      <h3 class="h-sub" data-ko="01. 직계약 유통" data-en="01. Direct Trade">01. 직계약 유통</h3>
+      <p class="t-body" data-ko="생산자와 직접 계약하여 불필요한 유통 마진을 줄였습니다." data-en="Direct contracts with producers reduce unnecessary margins.">생산자와 직접 계약하여 불필요한 유통 마진을 줄였습니다.</p>
+    </div>
+    <div>
+      <h3 class="h-sub" data-ko="02. 자체 물류" data-en="02. Own Logistics">02. 자체 물류</h3>
+      <p class="t-body" data-ko="용인 전용 물류센터로 신속하고 안전한 배송을 약속합니다." data-en="Our dedicated Yongin center ensures rapid and safe delivery.">용인 전용 물류센터로 신속하고 안전한 배송을 약속합니다.</p>
+    </div>
+    <div>
+      <h3 class="h-sub" data-ko="03. 옴니채널" data-en="03. Omni-Channel">03. 옴니채널</h3>
+      <p class="t-body" data-ko="온라인, 도소매, 폐쇄몰 등 4대 채널을 동시 운영합니다." data-en="We operate e-commerce, wholesale, and private corporate malls.">온라인, 도소매, 폐쇄몰 등 4대 채널을 동시 운영합니다.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container pt-120 pb-120" id="contact">
+  <div class="sec-header">
+    <h2 class="h-section" data-ko="컨택트" data-en="Inquiries">컨택트</h2>
+    <span class="sec-num">4.0</span>
+  </div>
+  
+  <div class="grid-2col">
+    <div>
+      <p class="t-body" data-ko="헤세드의 파트너가 되어 새로운 가치를 창출하세요. 언제든 여러분의 이야기를 들을 준비가 되어 있습니다." data-en="Become a partner of Chesed and create new value together. We are always ready to listen to your story.">헤세드의 파트너가 되어 새로운 가치를 창출하세요. 언제든 여러분의 이야기를 들을 준비가 되어 있습니다.</p>
+      
+      <div style="margin-top: 40px;">
+        <div class="t-small" style="margin-bottom:8px;">Headquarters</div>
+        <p class="t-body" style="color:var(--text-main);">경기도 안양시 동안구 시민대로230<br>평촌아크로타워 B305-133</p>
+      </div>
+      
+      <div style="margin-top: 24px;">
+        <div class="t-small" style="margin-bottom:8px;">Logistics</div>
+        <p class="t-body" style="color:var(--text-main);">경기도 용인시 모현읍 일산리 285-2</p>
+      </div>
+    </div>
+    
+    <div>
+      <!-- Formspree 동작 부분 (Phase 1 호환) -->
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="form-minimal">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" placeholder="Message" required></textarea>
+        <input type="hidden" name="_subject" value="CHESED V2 새 문의" />
+        <button type="submit" class="btn-black" data-ko="메시지 전송" data-en="Send Message">메시지 전송</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="nav-logo">CHESED</div>
+  <div class="t-small">&copy; 2025 CHESED Co., Ltd. All Rights Reserved.</div>
+</footer>
+
+<script>
+// 데이터 구조 (어드민 연동 타겟)
+var BRANDS = [
+  {name:'DE CECCO', origin:'Italy', category:'italian'},
+  {name:'DIVELLA', origin:'Italy', category:'italian'},
+  {name:'BRAGG', origin:'USA', category:'vinegar'},
+  {name:'TWININGS', origin:'UK', category:'intl'},
+  {name:'SKIPPY', origin:'USA', category:'intl'},
+  {name:'LEONARDI', origin:'Italy', category:'vinegar'}
+];
+var CATS = [
+  {key:'all', label_ko:'전체', label_en:'All'},
+  {key:'italian', label_ko:'이탈리안', label_en:'Italian'},
+  {key:'vinegar', label_ko:'비니거', label_en:'Vinegar'},
+  {key:'intl', label_ko:'인터내셔널', label_en:'International'}
+];
+
+var currentLang = 'ko';
+var currentFilter = 'all';
+var isSignup = false;
+
+// 렌더링
+function renderBrands() {
+  var grid = document.getElementById('brand-grid');
+  var fOpts = currentFilter === 'all' ? BRANDS : BRANDS.filter(function(b){ return b.category===currentFilter; });
+  grid.innerHTML = '';
+  fOpts.forEach(function(b){
+    var div = document.createElement('div');
+    div.className = 'brand-item';
+    div.innerHTML = '<div class="brand-name">'+b.name+'</div><div class="t-small">'+b.origin+'</div>';
+    grid.appendChild(div);
+  });
+}
+function renderFilters() {
+  var row = document.getElementById('filter-row');
+  row.innerHTML = '';
+  CATS.forEach(function(c){
+    var btn = document.createElement('button');
+    if(currentFilter === c.key) btn.className = 'active';
+    btn.textContent = currentLang === 'ko' ? c.label_ko : c.label_en;
+    btn.onclick = function(){ currentFilter=c.key; renderFilters(); renderBrands(); };
+    row.appendChild(btn);
+  });
+}
+function setLang(lang){
+  currentLang = lang;
+  document.getElementById('btn-ko').className = lang==='ko' ? 'lang-active' : '';
+  document.getElementById('btn-en').className = lang==='en' ? 'lang-active' : '';
+  
+  document.querySelectorAll('[data-ko][data-en]').forEach(function(el){
+    el.textContent = el.getAttribute('data-'+lang);
+  });
+  renderFilters(); renderBrands();
+}
+
+// 모달 로직
+function openModal(){ document.getElementById('auth-modal').classList.add('open'); }
+function closeModal(){ document.getElementById('auth-modal').classList.remove('open'); }
+function toggleAuth(){
+  isSignup = !isSignup;
+  document.getElementById('auth-title').innerText = isSignup ? (currentLang==='ko'?'회원가입':'Register') : (currentLang==='ko'?'로그인':'Login');
+  document.getElementById('auth-name').style.display = isSignup ? 'block':'none';
+  document.getElementById('auth-name').required = isSignup;
+  document.getElementById('auth-submit').innerText = isSignup ? 'SIGN UP':'LOGIN';
+}
+function handleAuth(e){
+  e.preventDefault();
+  alert("V2 백엔드 연결 진행 예정입니다.");
+  closeModal();
+}
+
+// 캐러셀 롤링 로직
+var currentSlideIndex = 0;
+var slideInterval;
+
+function moveCarousel(direction) {
+  var track = document.getElementById('about-track');
+  // 현재 보이는 갯수를 기준(PC: 2. 화면너비 기반 계산)으로 최대 페이지 수 설정
+  var totalSlides = track.children.length; // 8
+  // 모바일인지 PC인지에 따라 1번에 보여주는 갯수 조정
+  var slidesPerView = window.innerWidth <= 1024 ? 1 : 2; 
+  var maxIndex = totalSlides - slidesPerView;
+  
+  currentSlideIndex += direction;
+  
+  // 무한 롤링처럼 양끝 순환처리
+  if(currentSlideIndex > maxIndex) { currentSlideIndex = 0; }
+  else if(currentSlideIndex < 0) { currentSlideIndex = maxIndex; }
+  
+  // 1vw 갭(Gap)까지 정밀하게 포함시켜 이동해야 프레임 선이 어긋나지 않음
+  var slidePercent = 100 / slidesPerView;
+  var gapVw = 1 / slidesPerView;
+  track.style.transform = 'translateX(calc(-' + currentSlideIndex + ' * (' + slidePercent + '% + ' + gapVw + 'vw)))';
+}
+
+function startAutoRoll() {
+  slideInterval = setInterval(function(){
+    moveCarousel(1);
+  }, 3500); // 3.5초마다 이동
+}
+function stopAutoRoll() { clearInterval(slideInterval); }
+
+// 마우스 오버 시 자동 스크롤 멈춤 및 시작 이벤트 추가
+document.querySelector('.carousel-wrap').addEventListener('mouseenter', stopAutoRoll);
+document.querySelector('.carousel-wrap').addEventListener('mouseleave', startAutoRoll);
+
+renderFilters(); renderBrands();
+startAutoRoll(); // 자동 실행
+</script>
+</body>
+</html>

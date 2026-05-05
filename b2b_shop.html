@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHESED — B2B Partners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-display: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --bg-color: #ffffff;
+  --text-main: #0C1A30;
+  --text-muted: #56647B;
+  --text-light: #94A3B8;
+  --line-color: #E2E8F0;
+  --line-dark: #0C1A30;
+  --nav-h: 70px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { 
+  background: var(--bg-color); color: var(--text-main); font-family: var(--font-body); 
+  -webkit-font-smoothing: antialiased; line-height: 1.6; padding-top: var(--nav-h);
+}
+
+/* 네비게이션 */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-h);
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-color);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4vw; z-index: 100;
+}
+.nav-logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.nav-utils { display: flex; gap: 20px; align-items: center; font-size: 13px; font-weight: 500;}
+.nav-utils button { background:none; border:none; cursor:pointer; font-family:var(--font-body); font-weight:500; }
+
+/* 레이아웃 */
+.container { padding: 40px 4vw; }
+.h-section { font-family:var(--font-display); font-size:clamp(24px, 4vw, 40px); font-weight:600; margin-bottom: 8px;}
+.header-area { margin-bottom: 40px; display:flex; justify-content:space-between; align-items:flex-end;}
+
+/* 그리드 및 상품 아이템 (index.html 메인 페이지 스타일 차용) */
+.grid-4col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.product-item {
+  border: 1px solid var(--line-color); display: flex; flex-direction: column;
+  transition: border-color 0.3s;
+}
+.product-item:hover { border-color: var(--text-main); }
+.product-img {
+  width: 100%; aspect-ratio: 1/1; background: #fafafa; display:flex; align-items:center; justify-content:center;
+  border-bottom: 1px solid var(--line-color); font-size:12px; color:var(--text-light);
+}
+.product-img img { width:100%; height:100%; object-fit:cover; display:block; }
+.product-img.is-missing {
+  background: repeating-linear-gradient(135deg, #fafafa, #fafafa 12px, #f1f5f9 12px, #f1f5f9 24px);
+  color: var(--text-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.product-info { padding: 20px; flex: 1; display:flex; flex-direction:column;}
+.p-name { font-weight: 600; font-size: 16px; margin-bottom: 16px; font-family:var(--font-display);}
+.p-price-row { display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px; }
+.p-price-row.retail { color:var(--text-light); text-decoration:line-through; }
+.p-price-row.b2b { font-weight: 600; color:var(--text-main); }
+
+/* 장바구니 담기 UI */
+.cart-actions { margin-top: auto; padding-top: 16px; display:flex; gap:8px;}
+.cart-actions input { width: 60px; border: 1px solid var(--line-color); text-align:center; outline:none; padding: 12px 0;}
+.cart-actions button { 
+  flex:1; background:var(--text-main); color:#fff; border:none; 
+  padding: 12px; font-size:13px; font-weight:600; cursor:pointer; transition:opacity 0.2s;
+}
+.cart-actions button:hover { opacity: 0.8; }
+
+/* 장바구니 모달 UI */
+#cart-modal {
+  position:fixed; top:0; right:-400px; width:400px; height:100vh; 
+  background:#fff; border-left:1px solid var(--line-dark); box-shadow:-5px 0 20px rgba(0,0,0,0.05);
+  transition: right 0.3s; z-index:200; display:flex; flex-direction:column;
+}
+#cart-modal.open { right: 0; }
+.cart-header { padding:24px; border-bottom:1px solid var(--line-color); display:flex; justify-content:space-between; align-items:center;}
+.cart-body { flex:1; padding:24px; overflow-y:auto; }
+.cart-footer { padding:24px; border-top:1px solid var(--line-dark); }
+.btn-close { background:none; border:none; font-size:20px; cursor:pointer;}
+.btn-checkout { width:100%; padding:16px; background:var(--text-main); color:#fff; border:none; font-weight:600; cursor:pointer;}
+
+.cart-item { display:flex; justify-content:space-between; margin-bottom:16px; padding-bottom:16px; border-bottom:1px dashed var(--line-color); font-size:14px;}
+
+@media (max-width: 1024px) { .grid-4col { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { 
+  .grid-4col { grid-template-columns: 1fr; }
+  #cart-modal { width:100%; right:-100%; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">CHESED B2B</div>
+  <div class="nav-utils">
+    <span id="user-status" style="color:var(--text-muted);"></span>
+    <button onclick="openCart()">발주함 (<span id="cart-count">0</span>)</button>
+    <button onclick="logout()">로그아웃</button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="header-area">
+    <div>
+      <h1 class="h-section">Wholesale Catalog</h1>
+      <p style="color:var(--text-muted); font-size:14px;">대량(파레트) 및 소량(박스) 발주가 가능한 도매 전용 리스트입니다.</p>
+    </div>
+  </div>
+
+  <div class="grid-4col" id="product-grid">
+    <!-- JS Fetch 결과 렌더링 -->
+  </div>
+</div>
+
+<!-- 발주함(Cart) 사이드 패널 -->
+<div id="cart-modal">
+  <div class="cart-header">
+    <h2 style="font-size:18px;">발주서 작성</h2>
+    <button class="btn-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cart-items">
+    <!-- 담긴 상품 -->
+  </div>
+  <div class="cart-footer">
+    <div style="display:flex; justify-content:space-between; font-weight:600; margin-bottom:16px; font-size:18px;">
+      <span>예상 총액</span>
+      <span id="cart-total">0원</span>
+    </div>
+    <!-- 백엔드 Order API로 전송 -->
+    <button class="btn-checkout" onclick="checkout()">발주 접수 (주문 생성)</button>
+  </div>
+</div>
+
+<script src="app-config.js"></script>
+<script>
+const API_ORIGIN = window.CHESED_CONFIG && window.CHESED_CONFIG.API_ORIGIN
+  ? window.CHESED_CONFIG.API_ORIGIN
+  : (window.location.protocol === "file:" || window.location.hostname.endsWith(".github.io")
+    ? "http://localhost:8000"
+    : `${window.location.protocol}//${window.location.hostname}:8000`);
+const API_URL = `${API_ORIGIN}/api`;
+let productsData = [];
+let cart = [];
+
+// 천단위 콤마
+const formatPrice = (num) => num.toLocaleString() + "원";
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function renderProductImage(product) {
+  const name = escapeHtml(product.name || "Product");
+  const imageUrl = String(product.image_url || "").trim();
+  if(!imageUrl) {
+    return `<div class="product-img is-missing">No Image</div>`;
+  }
+  return `
+    <div class="product-img">
+      <img src="${escapeHtml(imageUrl)}" alt="${name}" onerror="this.parentElement.classList.add('is-missing'); this.parentElement.textContent='Image Pending';">
+    </div>
+  `;
+}
+
+// 초기화
+window.onload = async () => {
+  const token = localStorage.getItem("chesed_token");
+  if(!token) {
+    alert("로그인이 필요합니다.");
+    window.location.href = "login.html";
+    return;
+  }
+  
+  const isApproved = localStorage.getItem("chesed_approved") === "true";
+  document.getElementById("user-status").innerText = isApproved ? "승인회원" : "미승인(일반가 노출)";
+
+  await loadProducts(token);
+};
+
+// 상품 로드
+async function loadProducts(token) {
+  try {
+    const res = await fetch(`${API_URL}/products/`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    if(res.status === 401) {
+      alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+      logout();
+      return;
+    }
+    
+    productsData = await res.json();
+    renderProducts();
+  } catch(e) {
+    alert("서버 연결 실패. 파이썬 서버가 켜져 있는지 확인하세요.");
+  }
+}
+
+// 상품 렌더링
+function renderProducts() {
+  const grid = document.getElementById("product-grid");
+  grid.innerHTML = "";
+  
+  productsData.forEach(p => {
+    // b2b_lv1_price가 0으로 오면 미승인 상태이므로 b2b 정보 은닉
+    const showB2B = p.b2b_lv1_price > 0 || p.b2b_lv2_price > 0;
+    
+    const div = document.createElement("div");
+    div.className = "product-item";
+    div.innerHTML = `
+      ${renderProductImage(p)}
+      <div class="product-info">
+        <div class="p-name">${escapeHtml(p.name)}</div>
+        <div class="p-price-row retail">
+          <span>소비자가</span><span>${formatPrice(p.retail_price)}</span>
+        </div>
+        ${showB2B ? `
+        <div class="p-price-row">
+          <span>박스 단가 (MOQ ${p.moq_lv2})</span><span>${formatPrice(p.b2b_lv2_price)}</span>
+        </div>
+        <div class="p-price-row b2b">
+          <span>파레트 단가 (MOQ ${p.moq_lv1})</span><span>${formatPrice(p.b2b_lv1_price)}</span>
+        </div>
+        ` : `<div class="p-price-row b2b" style="margin-top:8px; color:red;"><span>관리자 승인 후 도매가 노출</span></div>`}
+        
+        <div class="cart-actions">
+          <input type="number" id="qty-${p.id}" value="${p.moq_lv2 > 0 ? p.moq_lv2 : 1}" min="1" ${!showB2B ? 'disabled' : ''}>
+          ${showB2B ? 
+            `<button onclick="addToCart(${p.id})">담기</button>` : 
+            `<button disabled style="background:#ccc; cursor:not-allowed;">승인 대기중</button>`
+          }
+        </div>
+      </div>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+function addToCart(productId) {
+  const qty = parseInt(document.getElementById(`qty-${productId}`).value);
+  const prod = productsData.find(p => p.id === productId);
+  
+  const existing = cart.find(c => c.product_id === productId);
+  if(existing) {
+    existing.quantity += qty;
+  } else {
+    cart.push({ 
+      product_id: productId, name: prod.name, quantity: qty, 
+      lv1: prod.b2b_lv1_price, lv2: prod.b2b_lv2_price, moq_lv1: prod.moq_lv1 
+    });
+  }
+  
+  updateCartUI();
+  openCart();
+}
+
+function updateCartUI() {
+  document.getElementById("cart-count").innerText = cart.length;
+  const itemsDiv = document.getElementById("cart-items");
+  itemsDiv.innerHTML = "";
+  
+  let totalSum = 0;
+
+  cart.forEach((c, idx) => {
+    // 수량이 moq_lv1(파레트 최소수량) 이상이면 파레트 단가(lv1) 적용, 아니면 박스 단가(lv2) 적용
+    const isPalette = c.quantity >= c.moq_lv1;
+    const currentPrice = isPalette ? c.lv1 : c.lv2;
+    const subTotal = currentPrice * c.quantity;
+    totalSum += subTotal;
+
+    itemsDiv.innerHTML += `
+      <div class="cart-item">
+        <div>
+          <div style="font-weight:600; margin-bottom:4px;">${c.name}</div>
+          <div style="color:var(--text-muted); font-size:12px;">수량: ${c.quantity}개 <span style="opacity:0.7;">(단가: ${formatPrice(currentPrice)}${isPalette ? ' 파레트할인' : ''})</span></div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end;">
+          <div style="font-weight:600; color:var(--text-main); margin-bottom:4px;">${formatPrice(subTotal)}</div>
+          <button onclick="cart.splice(${idx},1); updateCartUI();" style="background:none;border:none;color:red;cursor:pointer;font-size:12px;">삭제</button>
+        </div>
+      </div>
+    `;
+  });
+  
+  document.getElementById("cart-total").innerText = totalSum > 0 ? formatPrice(totalSum) : "0원";
+}
+
+function openCart() { document.getElementById("cart-modal").classList.add("open"); }
+function closeCart() { document.getElementById("cart-modal").classList.remove("open"); }
+function logout() {
+  localStorage.removeItem("chesed_token");
+  localStorage.removeItem("chesed_role");
+  localStorage.removeItem("chesed_approved");
+  window.location.href = "index.html";
+}
+
+async function checkout() {
+  if(cart.length === 0) return alert("발주할 상품이 없습니다.");
+  
+  const token = localStorage.getItem("chesed_token");
+  const payload = {
+    payment_method: "BANK_TRANSFER", // 우선 무통장입금으로 고정
+    shipping_address: "가입된 회사 주소로 배송", // 폼에서 입력받을 수 있으나 임시 고정
+    items: cart.map(c => ({ product_id: c.product_id, quantity: c.quantity }))
+  };
+
+  try {
+    const res = await fetch(`${API_URL}/orders/`, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(payload)
+    });
+    
+    if(res.ok) {
+      const orderData = await res.json();
+      alert(`발주서 접수가 완료되었습니다.\n주문번호: ${orderData.id}\n최종 확정 금액: ${formatPrice(orderData.total_amount)}`);
+      cart = [];
+      updateCartUI();
+      closeCart();
+    } else {
+      const err = await res.json();
+      alert("주문 실패: " + (err.detail || "오류"));
+    }
+  } catch(e) {
+    alert("서버 오류");
+  }
+}
+</script>
+</body>
+</html>

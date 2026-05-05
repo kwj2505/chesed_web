@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHESED — B2B Portal Auth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-display: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-accent: 'Playfair Display', serif;
+  --bg-color: #ffffff;
+  --text-main: #0C1A30;
+  --text-muted: #56647B;
+  --text-light: #94A3B8;
+  --line-color: #E2E8F0;
+  --line-dark: #0C1A30;
+  --logo-font: 'Inter', sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { 
+  background: var(--bg-color); color: var(--text-main); font-family: var(--font-body); 
+  -webkit-font-smoothing: antialiased; line-height: 1.6;
+  min-height: 100vh; display: flex; flex-direction: column;
+}
+a { color: inherit; text-decoration: none; }
+
+/* 네비게이션 간소화 버전 */
+nav {
+  position: absolute; top: 0; left: 0; width: 100%; height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4vw; z-index: 100;
+}
+.nav-logo { font-family: var(--logo-font); font-size: 24px; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+
+/* 중앙 폼 레이아웃 */
+.auth-container {
+  flex: 1; display: flex; justify-content: center; align-items: center; padding: 120px 4vw;
+}
+.auth-box {
+  width: 100%; max-width: 480px; padding: 40px; border: 1px solid var(--line-dark); background: #fff;
+}
+.h-display { font-family:var(--font-display); font-size: 32px; font-weight:600; line-height:1.2; letter-spacing:-0.03em; margin-bottom: 8px;}
+.t-body { font-size: 14px; font-weight: 300; color: var(--text-muted); margin-bottom: 32px; }
+
+/* 폼 스타일 */
+.form-minimal input {
+  width: 100%; border: none; border-bottom: 1px solid var(--line-color);
+  padding: 16px 0; font-size: 14px; font-family: var(--font-body);
+  margin-bottom: 24px; background: transparent; outline: none;
+  transition: border-color 0.3s;
+}
+.form-minimal input:focus { border-bottom-color: var(--text-main); }
+.btn-black { 
+  background: var(--text-main); color: #fff; border: none; 
+  padding: 16px 32px; font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+  width: 100%; transition: opacity 0.3s;
+}
+.btn-black:hover { opacity: 0.8; }
+
+.toggle-mode {
+  margin-top:24px; font-size:12px; color:var(--text-muted); text-align:center;
+}
+.toggle-mode button {
+  background:none; border:none; border-bottom:1px solid var(--text-main); 
+  cursor:pointer; margin-left:8px; font-weight:600; font-family: var(--font-body);
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">CHESED</a>
+  <a href="index.html" style="font-size:13px; font-weight:500;">메인으로 돌아가기</a>
+</nav>
+
+<div class="auth-container">
+  <div class="auth-box">
+    <h1 class="h-display" id="auth-title">B2B 로그인</h1>
+    <p class="t-body" id="auth-desc">승인된 도매 회원만 접근 가능한 파트너스 몰입니다.</p>
+    
+    <form class="form-minimal" id="auth-form" onsubmit="handleAuth(event)">
+      <!-- 회원가입 시에만 보이는 필드들 -->
+      <div id="register-fields" style="display:none;">
+        <input type="text" id="companyName" placeholder="상호명 / Company Name">
+        <input type="text" id="businessNumber" placeholder="사업자등록번호 / Business No.">
+        <input type="text" id="managerName" placeholder="담당자 성함 / Name">
+        <input type="tel" id="managerPhone" placeholder="담당자 연락처 / Phone">
+      </div>
+      
+      <!-- 공통 필드 -->
+      <input type="email" id="email" placeholder="이메일 (아이디) / Email" required>
+      <input type="password" id="password" placeholder="비밀번호 / Password" required>
+      
+      <button type="submit" class="btn-black" id="auth-submit">LOGIN</button>
+    </form>
+    
+    <div class="toggle-mode">
+      <span id="toggle-text">아직 파트너가 아니신가요?</span> 
+      <button onclick="toggleMode()" id="toggle-btn">사업자 회원가입</button>
+    </div>
+  </div>
+</div>
+
+<script src="app-config.js"></script>
+<script>
+let isSignup = false;
+const API_ORIGIN = window.CHESED_CONFIG && window.CHESED_CONFIG.API_ORIGIN
+  ? window.CHESED_CONFIG.API_ORIGIN
+  : (window.location.protocol === "file:" || window.location.hostname.endsWith(".github.io")
+    ? "http://localhost:8000"
+    : `${window.location.protocol}//${window.location.hostname}:8000`);
+const API_URL = `${API_ORIGIN}/api/users`;
+const allowedNextPages = ["admin.html", "b2b_shop.html"];
+
+function getRedirectTarget(role) {
+  const requestedNext = new URLSearchParams(window.location.search).get("next");
+  if(requestedNext && allowedNextPages.includes(requestedNext)) {
+    if(requestedNext === "admin.html" && role !== "admin") {
+      return "b2b_shop.html";
+    }
+    return requestedNext;
+  }
+  return role === "admin" ? "admin.html" : "b2b_shop.html";
+}
+
+function toggleMode() {
+  isSignup = !isSignup;
+  document.getElementById('auth-title').innerText = isSignup ? "B2B 파트너 신청" : "B2B 로그인";
+  document.getElementById('auth-desc').innerText = isSignup ? "간단한 정보 입력 후 관리자 승인을 통해 도매가로 발주하실 수 있습니다." : "승인된 도매 회원만 접근 가능한 파트너스 몰입니다.";
+  
+  document.getElementById('register-fields').style.display = isSignup ? 'block' : 'none';
+  
+  // 가입일 때만 필수값 부여
+  document.getElementById('companyName').required = isSignup;
+  document.getElementById('businessNumber').required = isSignup;
+  
+  document.getElementById('auth-submit').innerText = isSignup ? "회원가입 신청" : "LOGIN";
+  document.getElementById('toggle-text').innerText = isSignup ? "이미 가입하셨나요?" : "아직 파트너가 아니신가요?";
+  document.getElementById('toggle-btn').innerText = isSignup ? "로그인하기" : "사업자 회원가입";
+}
+
+async function handleAuth(e) {
+  e.preventDefault();
+  
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  if (isSignup) {
+    // 회원가입 로직
+    const body = {
+      email: email,
+      password: password,
+      name: document.getElementById('managerName').value,
+      phone: document.getElementById('managerPhone').value,
+      company_name: document.getElementById('companyName').value,
+      business_number: document.getElementById('businessNumber').value,
+      role: "b2b"
+    };
+
+    try {
+      const res = await fetch(`${API_URL}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      if (res.ok) {
+        alert("회원가입이 완료되었습니다. 관리자 승인 후 도매가 확인이 가능합니다.");
+        toggleMode(); // 다시 로그인 화면으로
+      } else {
+        const error = await res.json();
+        alert("가입 실패: " + (error.detail || "오류 발생"));
+      }
+    } catch(err) {
+      alert("백엔드 서버와 연결할 수 없습니다. 서버가 켜져 있는지 확인하세요.");
+    }
+  } else {
+    // 로그인 로직 (OAuth2 form-data 규격)
+    const formData = new URLSearchParams();
+    formData.append('username', email);
+    formData.append('password', password);
+
+    try {
+      const res = await fetch(`${API_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        // 토큰 저장
+        localStorage.setItem("chesed_token", data.access_token);
+        localStorage.setItem("chesed_role", data.role);
+        localStorage.setItem("chesed_approved", data.is_approved);
+        
+        if (!data.is_approved) {
+          alert("로그인 되었습니다.\n현재 '승인 대기' 상태이므로 일반 소비자가로 노출됩니다.");
+        }
+        window.location.href = getRedirectTarget(data.role);
+      } else {
+        alert("이메일이나 비밀번호가 일치하지 않습니다.");
+      }
+    } catch(err) {
+      alert("백엔드 서버와 연결할 수 없습니다. 서버가 켜져 있는지 확인하세요.");
+    }
+  }
+}
+</script>
+</body>
+</html>

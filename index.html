@@ -43,6 +43,7 @@
   --logo-img-height: 32px;
 
   --nav-h: 70px;
+  --line-width: 1px;
 }
 
 /* =========================================
@@ -97,8 +98,50 @@ nav {
 .lang-toggle { display: flex; gap: 8px; font-size: 11px; font-weight: 600; opacity: 0.6; cursor: pointer;}
 .lang-active { opacity: 1; text-decoration: underline; }
 
-/* 모바일 메뉴버튼 */
-.btn-mobile-menu { display:none; background:none; border:none; font-size:24px; cursor:pointer;}
+.nav-utils-links { display: flex; align-items: center; gap: 20px; flex-wrap: nowrap; }
+.btn-mobile-menu { display:none; background:none; border:none; font-size:22px; line-height:1; cursor:pointer; padding:4px 2px;}
+
+.mobile-nav-backdrop {
+  display: none;
+  position: fixed;
+  top: var(--nav-h); left: 0; right: 0; bottom: 0;
+  background: rgba(12, 26, 48, 0.35);
+  z-index: 90;
+}
+.mobile-nav-backdrop.open { display: block; }
+body.mobile-nav-open { overflow: hidden; }
+
+.mobile-nav-panel {
+  position: fixed;
+  top: var(--nav-h);
+  right: 0;
+  bottom: 0;
+  width: min(100%, 340px);
+  max-width: 100vw;
+  background: #fff;
+  border-left: 1px solid var(--line-color);
+  z-index: 95;
+  padding: 28px 24px 40px;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.28s ease;
+  box-shadow: -8px 0 32px rgba(12, 26, 48, 0.08);
+}
+.mobile-nav-panel.open { transform: translateX(0); }
+
+.mobile-nav-panel ul { list-style: none; margin: 0; padding: 0; }
+.mobile-nav-panel li { border-bottom: 1px solid var(--line-color); }
+.mobile-nav-panel a {
+  display: block;
+  padding: 16px 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+.mobile-nav-panel a.btn-text { font-size: 14px; }
+.mobile-nav-panel .mobile-nav-store { margin-top: 8px; padding-top: 20px; border-top: 1px solid var(--line-dark); border-bottom: none; }
+.mobile-nav-panel .mobile-nav-store a { padding-top: 12px; }
+
 
 /* =========================================
    5. Hero Section
@@ -241,7 +284,9 @@ footer { padding: 60px 4vw; display: flex; justify-content: space-between; align
 }
 @media (max-width: 768px) {
   .nav-menu { display: none; }
+  .nav-utils-links { display: none; }
   .btn-mobile-menu { display: block; }
+  .nav-utils { gap: 10px; flex-shrink: 0; }
   .grid-2col, .grid-2col-asym, .grid-3col { grid-template-columns: 1fr; }
   .sec-header { flex-direction: column; align-items: flex-start; }
   .sec-num { margin-bottom: 8px; }
@@ -270,15 +315,29 @@ footer { padding: 60px 4vw; display: flex; justify-content: space-between; align
   </ul>
   <div class="nav-utils">
     <div class="lang-toggle">
-      <span id="btn-ko" class="lang-active" onclick="setLang('ko')">KR</span>
-      <span id="btn-en" onclick="setLang('en')">EN</span>
+      <span id="btn-ko" class="lang-active" onclick="setLang('ko'); closeMobileNav();">KR</span>
+      <span id="btn-en" onclick="setLang('en'); closeMobileNav();">EN</span>
     </div>
+    <div class="nav-utils-links">
     <a href="login.html" class="btn-text" data-ko="B2B 전용몰" data-en="B2B Login">B2B 전용몰</a>
     <a href="#contact" class="btn-text" data-ko="문의" data-en="Contact">문의</a>
     <a id="smartstore-link" href="https://smartstore.naver.com/peppernsalt" class="btn-text" target="_blank" rel="noopener" data-ko="스마트스토어" data-en="Store">스마트스토어</a>
-    <button class="btn-mobile-menu">☰</button>
+    </div>
+    <button type="button" class="btn-mobile-menu" aria-expanded="false" aria-label="메뉴 열기" onclick="toggleMobileNav()">☰</button>
   </div>
 </nav>
+
+<div id="mobile-nav-backdrop" class="mobile-nav-backdrop" onclick="closeMobileNav()"></div>
+<div id="mobile-nav-panel" class="mobile-nav-panel" role="dialog" aria-modal="true" aria-label="메뉴">
+  <ul>
+    <li><a href="#about" data-ko="회사소개" data-en="About" onclick="closeMobileNav()">회사소개</a></li>
+    <li><a href="#brands" data-ko="취급브랜드" data-en="Brands" onclick="closeMobileNav()">취급브랜드</a></li>
+    <li><a href="#partners" data-ko="비즈니스 전략" data-en="Business" onclick="closeMobileNav()">비즈니스 전략</a></li>
+    <li><a href="login.html" class="btn-text" data-ko="B2B 전용몰" data-en="B2B Login" onclick="closeMobileNav()">B2B 전용몰</a></li>
+    <li><a href="#contact" class="btn-text" data-ko="문의" data-en="Contact" onclick="closeMobileNav()">문의</a></li>
+    <li class="mobile-nav-store"><a id="smartstore-link-mobile" href="https://smartstore.naver.com/peppernsalt" target="_blank" rel="noopener" data-ko="스마트스토어" data-en="Store" onclick="closeMobileNav()">스마트스토어</a></li>
+  </ul>
+</div>
 
 <!-- Auth Modal UI -->
 <div id="auth-modal" class="modal">
@@ -401,7 +460,7 @@ footer { padding: 60px 4vw; display: flex; justify-content: space-between; align
     </div>
     <div>
       <h3 id="channel-3-title" class="h-sub" data-ko="03. 옴니채널" data-en="03. Omni-Channel">03. 옴니채널</h3>
-      <p id="channel-3-body" class="t-body" data-ko="리테일·온라인·도소매·폐쇄몰·문구채널 등 멀티 터치포인트에서 해외 명품 브랜드를 국내 시장에 연결합니다." data-en="We connect global brands to Korea across online, private malls, wholesale, and stationery retail touchpoints.">리테일·온라인·도소매·폐쇄몰·문구채널 등 멀티 터치포인트에서 해외 명품 브랜드를 국내 시장에 연결합니다.</p>
+      <p id="channel-3-body" class="t-body" data-ko="온라인·폐쇄몰·도소매·문구 채널 등 멀티 터치포인트에서 해외 명품 브랜드를 국내 시장에 연결합니다." data-en="We connect global brands to Korea across online, private malls, wholesale, and stationery retail touchpoints.">온라인·폐쇄몰·도소매·문구 채널 등 멀티 터치포인트에서 해외 명품 브랜드를 국내 시장에 연결합니다.</p>
     </div>
   </div>
 </div>
@@ -434,8 +493,8 @@ Biott Logistics Center">경기도 용인시 모현읍 일산리 285-2
       <div style="margin-top: 24px;">
         <div class="t-small" style="margin-bottom:8px;">Contact</div>
         <p class="t-body" style="color:var(--text-main);">
-          <span id="contact-email-text">chesed2505@gmail.com</span><br>
-          <span id="contact-phone-text">+82-31-425-9939</span>
+          <span id="contact-email-text">Email pending</span><br>
+          <span id="contact-phone-text">Phone pending</span>
         </p>
       </div>
     </div>
@@ -464,15 +523,15 @@ Biott Logistics Center">경기도 용인시 모현읍 일산리 285-2
 var BRANDS = [
   {name:'DE CECCO', origin:'Italy', category:'italian'},
   {name:'DIVELLA', origin:'Italy', category:'italian'},
-  {name:'BRAGG', origin:'USA', category:'american'},
+  {name:'BRAGG', origin:'USA', category:'vinegar'},
   {name:'TWININGS', origin:'UK', category:'intl'},
   {name:'SKIPPY', origin:'USA', category:'intl'},
-  {name:'LEONARDI', origin:'Italy', category:'italian'}
+  {name:'LEONARDI', origin:'Italy', category:'vinegar'}
 ];
 var CATS = [
   {key:'all', label_ko:'전체', label_en:'All'},
   {key:'italian', label_ko:'이탈리안', label_en:'Italian'},
-  {key:'vinegar', label_ko:'미국', label_en:'American'},
+  {key:'vinegar', label_ko:'비니거', label_en:'Vinegar'},
   {key:'intl', label_ko:'인터내셔널', label_en:'International'}
 ];
 
@@ -524,6 +583,32 @@ function setLang(lang){
   });
   renderFilters(); renderBrands();
 }
+
+function toggleMobileNav() {
+  var panel = document.getElementById('mobile-nav-panel');
+  var backdrop = document.getElementById('mobile-nav-backdrop');
+  var btn = document.querySelector('.btn-mobile-menu');
+  if(!panel || !backdrop) return;
+  var open = !panel.classList.contains('open');
+  panel.classList.toggle('open', open);
+  backdrop.classList.toggle('open', open);
+  document.body.classList.toggle('mobile-nav-open', open);
+  if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+function closeMobileNav() {
+  var panel = document.getElementById('mobile-nav-panel');
+  var backdrop = document.getElementById('mobile-nav-backdrop');
+  var btn = document.querySelector('.btn-mobile-menu');
+  if(panel) panel.classList.remove('open');
+  if(backdrop) backdrop.classList.remove('open');
+  document.body.classList.remove('mobile-nav-open');
+  if(btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeMobileNav();
+});
 
 function escapeHtml(value) {
   return String(value || '')
@@ -604,6 +689,7 @@ function settingsToMap(settings) {
 
 function applySiteSettings(settings) {
   var smartstoreLink = document.getElementById('smartstore-link');
+  var smartstoreLinkMobile = document.getElementById('smartstore-link-mobile');
   var headOfficeText = document.getElementById('head-office-text');
   var logisticsText = document.getElementById('logistics-text');
   var contactEmailText = document.getElementById('contact-email-text');
@@ -640,6 +726,7 @@ function applySiteSettings(settings) {
   ];
 
   if(settings.smartstore_url && smartstoreLink) smartstoreLink.href = settings.smartstore_url;
+  if(settings.smartstore_url && smartstoreLinkMobile) smartstoreLinkMobile.href = settings.smartstore_url;
   if(settings.head_office_address && headOfficeText) headOfficeText.textContent = settings.head_office_address;
   if(settings.logistics_address && logisticsText) logisticsText.textContent = settings.logistics_address;
   if(headOfficeText) {

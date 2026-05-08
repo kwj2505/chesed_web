@@ -91,6 +91,8 @@ nav {
 .nav-logo { display:flex; align-items:center; }
 .logo-text { font-family: var(--logo-font); font-size: var(--logo-size); font-weight: 700; color: var(--logo-color); letter-spacing: -0.5px; }
 .logo-img { display: none; height: var(--logo-img-height); width: auto; object-fit: contain; }
+.nav-logo a.use-logo-image .logo-text { display: none !important; }
+.nav-logo a.use-logo-image .logo-img { display: block !important; }
 .nav-menu { display: flex; gap: 32px; list-style: none; }
 .nav-menu a { font-size: 13px; font-weight: 500;  }
 .nav-utils { display: flex; align-items: center; gap: 20px; }
@@ -305,7 +307,7 @@ footer { padding: 60px 4vw; display: flex; justify-content: space-between; align
       <!-- 텍스트 로고 사용 시 (기본값) -->
       <span class="logo-text">CHESED</span>
       <!-- 이미지 로고 사용 시 (어드민에서 이미지 업로드 시 .logo-text를 숨기고 이걸 표시) -->
-      <img class="logo-img" src="assets/logo/logo.png" alt="CHESED">
+      <img class="logo-img" src="assets/logo/logo.png?v=2" alt="CHESED">
     </a>
   </div>
   <ul class="nav-menu">
